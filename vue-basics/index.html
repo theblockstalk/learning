@@ -7,19 +7,30 @@
         <script src="lib/vue.js"></script>
     </head>
     <body>
+    <!--
+      Notes
+             
+      @ = v-on:
+      : = v-bind:
+    -->
+
         <div id="app-shopping">
-            <h1>
-                {{ heading.toUpperCase() }}
-            </h1>
-            <div class="add-shopping-item">
-                <input v-model="newItem" type="text" placeholder="A Vue course" v-on:keyup.enter="addItem">
-                <button class="btn btn-primary" v-on:click="addItem">Save item</button>
+          <div class="header">
+            <h1>{{ heading.toUpperCase() }}</h1>
+            <button class="btn btn-primary" v-if="state === 'default'" @click="changeState('edit')">Add item</button>
+            <button class="btn btn-cancel" v-else @click="changeState('default')">Cancel</button>
+          </div>
+            <div v-if="state === 'edit'" class="add-shopping-item">
+                <input type="text" v-model="newItem" placeholder="A Vue course" v-on:keyup.enter="addItem">
+                <button class="btn btn-primary" v-bind:disabled="newItem.length === 0" v-on:click="addItem">Save item</button>
             </div>
+            <!-- <a v-bind:href="newItem" target="blank">Dynamic link</a> -->
             <ol>
                 <li v-for="item of items">
                     {{ item }}
                 </li>
             </ol>
+            <p v-if="items.length === 0">Time to purchase something</p>
         </div>
 
         <div id="app">
