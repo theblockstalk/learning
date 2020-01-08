@@ -77,13 +77,26 @@ let shoppingApp = new Vue({
         state: "default",
         newItem: "",
         items: [
-            // "apple",
-            // "bananas"
+            {
+              label: "apple",
+              purchased: true
+            },
+            {
+              label: "bananas",
+              purchased: false
+            },
+            {
+              label: "tea",
+              purchased: true
+            }
         ]
     },
     methods: {
         addItem: function () {
-            this.items.push(this.newItem);
+            this.items.push({
+              label: this.newItem,
+              purchased: false
+            });
             this.newItem = '';
         },
         changeState: function(newState) {
