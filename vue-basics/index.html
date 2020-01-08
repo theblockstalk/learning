@@ -1,91 +1,85 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Vue app!</title>
+<!--
+  Notes
 
+  @ = v-on:
+  : = v-bind:
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Shopping List App</title>
         <link rel="stylesheet" href="main.css">
     </head>
     <body>
-    <!--
-      Notes
-
-      @ = v-on:
-      : = v-bind:
-    -->
-
-        <div id="app-shopping">
-          <div class="header">
-            <h1>{{ heading.toUpperCase() }}</h1>
-            <button class="btn btn-primary" v-if="state === 'default'" @click="changeState('edit')">Add item</button>
-            <button class="btn btn-cancel" v-else @click="changeState('default')">Cancel</button>
-          </div>
-          <div v-if="state === 'edit'" class="add-shopping-item">
-              <input type="text" v-model="newItem" placeholder="A Vue course" v-on:keyup.enter="addItem">
-              <button class="btn btn-primary" v-bind:disabled="newItem.length === 0" v-on:click="addItem">Save item</button>
-          </div>
-          <!-- <a v-bind:href="newItem" target="blank">Dynamic link</a> -->
-          <ol>
-              <li v-for="item of items" v-bind:class="{strikeout: item.purchased}">{{ item.label }}</li>
-          </ol>
-          <p v-if="items.length === 0">Time to purchase something</p>
+        <div id="shopping-list">
+            <div class="header">
+                <h1>{{ header.toLocaleUpperCase() }}</h1>
+                <button v-if="state === 'default'" class="btn btn-primary" @click="changeState('edit')">Add Item</button>
+                <button v-else class="btn btn-cancel" @click="changeState('default')">Cancel Adding Item</button>
+            </div>
+            <div v-if="state === 'edit'" class="add-item-form">
+                <input v-model="newItem" type="text" placeholder="Add an item" @keyup.enter="saveItem">
+                <p>{{ characterCount }} / 200</p>
+                <button class="btn btn-primary" :disabled="newItem.length === 0" @click="saveItem">Save Item</button>
+            </div>
+            <ul>
+                <li v-for="item in reversedItems" :class="{strikeout: item.purchased, priority: item.highPriority}" @click="togglePurchased(item)">{{ item.label }}</li>
+            </ul>
+            <p v-if="items.length === 0">Nice job! You've bought all your items.</p>
         </div>
-
-        <div id="app">
-          <p>{{ message }}</p>
-        </div>
-          
-        <div id="app-2">
-          <span v-bind:title="message">
-            Hover your mouse over me for a few seconds
-            to see my dynamically bound title!
-          </span>
-        </div>
-          
-        <div id="app-3">
-          <span v-if="seen">Now you see me</span>
-        </div>
-          
-        <div id="app-4">
-          <ol>
-            <li v-for="todo in todos">
-              {{ todo.text }}
-            </li>
-          </ol>
-        </div>
-          
-        <div id="app-5">
-          <p>{{ message }}</p>
-          <button v-on:click="reverseMessage">Reverse Message</button>
-        </div>
-          
-        <div id="app-6">
-          <p>{{ message.toUpperCase() }}</p>
-          <input v-model="message">
-          <ul>
-              <li v-for="item in items">
-                  {{ item.text }}
-              </li>    
-          </ul>
-        </div>
-
-        <div id="app-7">
-          <ol>
-            <!--
-              Now we provide each todo-item with the todo object
-              it's representing, so that its content can be dynamic.
-              We also need to provide each component with a "key",
-              which will be explained later.
-            -->
-            <todo-item
-              v-for="item in groceryList"
-              v-bind:todo="item"
-              v-bind:key="item.id"
-            ></todo-item>
-          </ol>
-        </div>
-
         <script src="lib/vue.js"></script>
-        <script src="app.js"></script>
+        <script>
+            var shoppingList = new Vue({
+                el: '#shopping-list',
+                data: {
+                    state: 'default',
+                    header: 'shopping list app',
+                    newItem: '',
+                    items: [
+                        {
+                            label: '10 party hats',
+                            purchased: false,
+                            highPriority: false,
+                        },
+                        {
+                            label: '2 board games',
+                            purchased: true,
+                            highPriority: false,
+                        },
+                        {
+                            label: '20 cups',
+                            purchased: false,
+                            highPriority: true,
+                        },
+                    ]
+                },
+                computed: {
+                  characterCount: function() {
+                    return this.newItem.length;
+                  },
+                  reversedItems: function() {
+                    let itemCopy = JSON.parse(JSON.stringify(this.items))
+                    return itemCopy.reverse();
+                  }
+                },
+                methods: {
+                    saveItem: function() {
+                        this.items.push({
+                            label: this.newItem,
+                            purchased: false,
+                        });
+                        this.newItem = '';
+                    },
+                    changeState: function(newState) {
+                        this.state = newState;
+                        this.newItem = '';
+                    },
+                    togglePurchased: function(item) {
+                        item.purchased = !item.purchased;
+                    }
+                }
+            })
+        </script>
     </body>
 </html>
