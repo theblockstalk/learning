@@ -1,0 +1,45 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="../lib/semantic-v2.4.1.min.css">
+</head>
+
+<body>
+
+  <div id="app" class="ui container">
+    <h1>GitHub Profiles</h1>
+    <github-user-card username="hootlex"></github-user-card>
+    <github-user-card username="theblockstalk"></github-user-card>
+
+    <!-- Template for GitHub card -->
+    <script type="text/x-template" id="github-user-card-template">
+        <div class="ui card">
+            <div class="image">
+                <img :src="avatar_url">
+            </div>
+            <div class="content">
+                <a class="header" :href="html_url" target="blank">{{name}}</a>
+                <div class="meta">
+                <span class="date">Joined in {{created_year}}</span>
+                </div>
+                <div class="description">
+                {{bio}}
+                </div>
+            </div>
+            <div class="extra content">
+                <a :href="html_url" target="blank">
+                <i class="user icon"></i>
+                {{followers}} Friends
+                </a>
+            </div>
+        </div>
+    </script>
+  </div>
+
+  <script src="../lib/vue.js"></script>
+  <script src="../lib/axios.min.js"></script>
+  
+  <script src="app.js"></script>
+</body>
+
+</html>
