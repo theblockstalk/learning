@@ -1,19 +1,25 @@
 <template>
   <div>
-      This is the body
-      Account name: {{accountName}}
+      <p>Account name: {{accountName}}</p>
+      <TodoList />
   </div>
 </template>
 
 <script>
+import TodoList from './TodoList.vue'
+
 export default {
+    name: "TheBody",
     props: {
         accountName: String
     },
     data() {
         return {
-            todoItems: []
+            // todoItems: []
         }
+    },
+    components: {
+        TodoList
     }
 }
 </script>
