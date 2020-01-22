@@ -9,7 +9,7 @@
 
 <script>
 import TodoListItem from './TodoListItem';
-import connect from '../eosio';
+import eosio from '../eosio.js';
 
 export default {
     name: "TodoList",
@@ -33,8 +33,9 @@ export default {
     components: {
         TodoListItem
     },
-    created() {
-        connect();
+    async created() {
+        await eosio.connect();
+        await eosio.login();
     }
 }
 </script>

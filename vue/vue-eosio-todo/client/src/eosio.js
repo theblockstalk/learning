@@ -5,6 +5,7 @@ import eosjs from 'eosjs';
 ScatterJS.plugins( new ScatterEOSIO() )
 
 const CONTRACT_ACCOUNT = 'new3';
+const APP_NAME = "Todo list app";
 
 const network = {
     blockchain: 'eos',
@@ -17,7 +18,7 @@ const network = {
 let scatter, account, eos;
 
 const connect = async function() {
-    const connected = await ScatterJS.scatter.connect("todolist")
+    const connected = await ScatterJS.scatter.connect(APP_NAME)
 
     if(!connected) throw Error("Could not connect to Scatter");
 
