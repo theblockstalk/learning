@@ -9,6 +9,7 @@
 
 <script>
 import TodoListItem from './TodoListItem';
+import connect from '../eosio';
 
 export default {
     name: "TodoList",
@@ -31,6 +32,9 @@ export default {
     },
     components: {
         TodoListItem
+    },
+    created() {
+        connect();
     }
 }
 </script>

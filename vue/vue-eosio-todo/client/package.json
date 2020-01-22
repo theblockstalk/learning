@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "core-js": "^3.4.4",
+    "eosjs": "^20.0.3",
+    "scatterjs-core": "^2.7.18",
+    "scatterjs-plugin-eosjs2": "^1.5.0",
     "vue": "^2.6.10"
   },
   "devDependencies": {
