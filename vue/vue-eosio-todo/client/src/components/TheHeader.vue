@@ -1,6 +1,12 @@
 <template>
   <div class="hello">
     <h1>{{ projectName }}</h1>
+    <p>Login</p>
+    <p>User</p>
+    <div>
+      <p>Account</p>
+      <p>Settings</p>
+    </div>
   </div>
 </template>
 
