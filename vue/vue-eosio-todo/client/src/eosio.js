@@ -15,11 +15,13 @@ const network = {
     chainId: 'bc31c358a5aaafb5f7ad73a2ef85625f67fe9dc027f8c441fc272027d53f00f6'
 }
 
-let scatter, account, eos;
+const requiredFields = { accounts:[network] };
+let scatter, account, eosApi;
 
 const connect = async function() {
-    const connected = await ScatterJS.scatter.connect(APP_NAME)
-
+    console.log("Connecting to scatter");
+    const connected = await ScatterJS.scatter.connect(APP_NAME);
+    console.log(connect);
     if(!connected) throw Error("Could not connect to Scatter");
 
     window.ScatterJS = null;
@@ -28,7 +30,6 @@ const connect = async function() {
 }
 
 const login = async function() {
-    const requiredFields = { accounts:[network] };
     await scatter.getIdentity(requiredFields);
     
     // Always use the accounts you got back from Scatter. Never hardcode them even if you are prompting
@@ -39,21 +40,25 @@ const login = async function() {
     const eosOptions = { expireInSeconds:60 };
 
     // Get a proxy reference to eosjs which you can use to sign transactions with a user's Scatter.
-    eos = scatter.eos(network, eosjs, eosOptions);
+    eosApi = scatter.eos(network, eosjs, eosOptions);
 }
 
 const createitem = async function(todoStr) {
-    const trx = await transact('createitem', {
+    const contract = await eosApi.getContract(CONTRACT_ACCOUNT, {requiredFields});
+    const trx = await contract.createitem({
         from: account,
         item: todoStr
     })
+    // const trx = await transact('createitem', {
+    //     from: account,
+    //     item: todoStr
+    // })
 
-    return trx.transaction_id;
-    // console.log(`Transaction ID: ${trx.transaction_id}`);
+    console.log(`Transaction ID: ${trx.transaction_id}`);
 }
 
 const transact = async function(action, data) {
-    return await eos.transact({
+    return await eosApi.transact({
         actions: [{
             account: CONTRACT_ACCOUNT,
             name: action,
