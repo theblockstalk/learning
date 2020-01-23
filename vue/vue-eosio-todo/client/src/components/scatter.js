@@ -12,49 +12,33 @@ const network = ScatterJS.Network.fromJson({
     protocol:'https'
 });
 
-let scatter, account, eos;
-
 class Scatter {
     connected = false;
     account = null;
     eos = null;
     name = "My-app"; // no spaces allowed
 
-    async connect() {
-        console.log("connecting to scatter");
+    constructor(name = "My-app") {
+        this.name = name;
+    }
 
+    async connect() {
         this.connected = await ScatterJS.scatter.connect(this.name, {network});
         
         if(!this.connected) throw new Error("Not connected to scatter");
-        console.log("connected");
+    }
 
+    async login() {
         await ScatterJS.login();
 
         this.account = ScatterJS.account('eos');
-        console.log(this.account);
 
         const rpc = new JsonRpc(network.fullhost());
         this.eos = ScatterJS.eos(network, Api, {rpc});
+    }
 
-        const trx = await this.eos.transact({
-            actions: [{
-                account: 'eosio.token',
-                name: 'transfer',
-                authorization: [{
-                actor: this.account.name,
-                permission: this.account.authority,
-            }],
-            data: {
-                from: this.account.name,
-                to: 'b1',
-                quantity: '0.0001 EOS',
-                memo: ''
-            },
-            }]}, {
-                blocksBehind: 3,
-                expireSeconds: 30,
-          }
-        )
+    async logout() {
+        await ScatterJS.logout();
     }
 }
 

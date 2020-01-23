@@ -10,7 +10,8 @@
 
 <script>
 import TodoListItem from './TodoListItem';
-import Scatter from '../scatter.js';
+import Scatter from './scatter.js';
+import Contract from './contract.js';
 
 export default {
     name: "TodoList",
@@ -37,8 +38,19 @@ export default {
     },
     async created() {
         try {
-            const scatter = new Scatter("Todo list app");
+            const scatter = new Scatter("Todolist");
             await scatter.connect();
+            await scatter.login();
+
+            const todoContract = new Contract("new3", scatter);
+
+            const trx = await todoContract.transact("createitem", {
+                from: scatter.account.name,
+                item: "apples and oranges"
+            })
+
+            console.log(trx);
+
         } catch (e) {
             this.errorMsg = e.message;
         }
