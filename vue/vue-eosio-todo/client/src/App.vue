@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <TheHeader projectName="Todo list"/>
-    <TheBody accountName="jacko"/>
+    <TheBody/>
   </div>
 </template>
 

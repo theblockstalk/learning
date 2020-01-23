@@ -10,12 +10,9 @@ import TodoList from './TodoList.vue'
 
 export default {
     name: "TheBody",
-    props: {
-        accountName: String
-    },
     data() {
         return {
-            // todoItems: []
+            accountName: "jacko"
         }
     },
     components: {

@@ -16,6 +16,7 @@ class Scatter {
     connected = false;
     account = null;
     eos = null;
+    rpc = null;
     name = "My-app"; // no spaces allowed
 
     constructor(name = "My-app") {
@@ -33,7 +34,7 @@ class Scatter {
 
         this.account = ScatterJS.account('eos');
 
-        const rpc = new JsonRpc(network.fullhost());
+        let rpc = this.rpc = new JsonRpc(network.fullhost());
         this.eos = ScatterJS.eos(network, Api, {rpc});
     }
 

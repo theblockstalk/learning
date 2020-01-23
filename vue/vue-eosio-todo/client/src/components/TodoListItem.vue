@@ -8,6 +8,10 @@ export default {
         name: {
             type: String,
             required: true
+        },
+        done: {
+            type: Boolean,
+            required: true
         }
     }
 }
