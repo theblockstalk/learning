@@ -1,5 +1,5 @@
 <template>
-    <li>{{name}}</li>
+    <li :class="{done: done}">{{name}}</li>
 </template>
 
 <script>
@@ -17,6 +17,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+    .done {
+        text-decoration: line-through
+    }
 </style>

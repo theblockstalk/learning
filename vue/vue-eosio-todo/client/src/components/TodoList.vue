@@ -19,7 +19,8 @@ export default {
         return {
             accountName: null,
             errorMsg: null,
-            todoItems: []
+            todoItems: [],
+            todoContract: null
         }
     },
     components: {
@@ -31,11 +32,11 @@ export default {
             await scatter.connect();
             await scatter.login();
 
-            const todoContract = new Contract("new3", scatter);
-            await todoContract.init();
-            // let trx = await todoContract.createitem(scatter.account.name, "apples and oranges");
+            this.todoContract = new Contract("new3", scatter);
+            await this.todoContract.initializeContract();
+            // let trx = await this.todoContract.createitem(scatter.account.name, "apples and oranges");
 
-            const todolist = await todoContract.todo(scatter.account.name);
+            const todolist = await this.todoContract.todo(scatter.account.name);
             this.todoItems = [];
             for (let row of todolist.rows) {
                 this.todoItems.push({

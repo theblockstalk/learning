@@ -7,7 +7,7 @@ class Contract {
         this.scatter = scatter;
     }
 
-    async init() {
+    async initializeContract() {
         const contract = await this.scatter.eos.getContract(this.contractAccount);
         const abi = await this.scatter.eos.getAbi(this.contractAccount);
         
