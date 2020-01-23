@@ -1,11 +1,9 @@
 <template>
-  <div>
-      <ul>
-          <TodoListItem v-for="item in todoItems"
-            :name="item.name" :done="item.done" :key="item.name"/>
-      </ul>
-      <p>{{errorMsg}}</p>
-  </div>
+    <div>
+        <p v-if="todoItems.length > 0">List</p>
+        <TodoListItem v-for="item in todoItems" @toggle="toggleItem" :name="item.name" :id="item.id" :done="item.done" :key="item.name"/>
+        <p>{{errorMsg}}</p>
+    </div>
 </template>
 
 <script>
@@ -20,23 +18,41 @@ export default {
             accountName: null,
             errorMsg: null,
             todoItems: [],
+            scatter: null,
             todoContract: null
         }
     },
     components: {
         TodoListItem
     },
+    methods: {
+        async toggleItem(id) {
+            try {
+                let trx = await this.todoContract.toggledone(this.scatter.account.name, id);
+                if (trx.processed && trx.processed.receipt.status === "executed") {
+                    let index = this.todoItems.findIndex(item => {
+                        return id === item.id
+                    })
+                    this.todoItems[index].done = !this.todoItems[index].done;
+                } else {
+                    console.log(trx);
+                    throw new Error("Transaction did not execute sucessfull. id: ", trx.transaction_id);
+                }
+            } catch (e) {
+                this.errorMsg = e.message;
+            }
+        }
+    },
     async created() {
         try {
-            const scatter = new Scatter("Todolist");
-            await scatter.connect();
-            await scatter.login();
+            this.scatter = new Scatter("Todolist");
+            await this.scatter.connect();
+            await this.scatter.login();
 
-            this.todoContract = new Contract("new3", scatter);
+            this.todoContract = new Contract("new3", this.scatter);
             await this.todoContract.initializeContract();
-            // let trx = await this.todoContract.createitem(scatter.account.name, "apples and oranges");
 
-            const todolist = await this.todoContract.todo(scatter.account.name);
+            const todolist = await this.todoContract.todo(this.scatter.account.name);
             this.todoItems = [];
             for (let row of todolist.rows) {
                 this.todoItems.push({
@@ -44,8 +60,7 @@ export default {
                     name: row.todo,
                     done: row.completed === 0 ? false : true
                 })
-            }
-            
+            }            
         } catch (e) {
             this.errorMsg = e.message;
         }

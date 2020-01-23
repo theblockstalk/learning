@@ -1,10 +1,14 @@
 <template>
-    <li :class="{done: done}">{{name}}</li>
+    <div @click="toggle()" :class="{done: done}">{{name}}</div>
 </template>
 
 <script>
 export default {
     props: {
+        id: {
+            type: Number,
+            required: true
+        },
         name: {
             type: String,
             required: true
@@ -12,6 +16,12 @@ export default {
         done: {
             type: Boolean,
             required: true
+        }
+    },
+    methods: {
+        toggle() {
+            console.log("call toggleitem");
+            this.$emit("toggle", this.id);
         }
     }
 }
