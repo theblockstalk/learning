@@ -12,15 +12,18 @@ const network = ScatterJS.Network.fromJson({
     protocol:'https'
 });
 
-let connected, scatter, account, eos;
+let scatter, account, eos;
 
 class Scatter {
     connected = false;
+    account = null;
+    eos = null;
+    name = "My-app"; // no spaces allowed
 
     async connect() {
         console.log("connecting to scatter");
 
-        this.connected = await ScatterJS.scatter.connect('My-App', {network});
+        this.connected = await ScatterJS.scatter.connect(this.name, {network});
         
         if(!this.connected) throw new Error("Not connected to scatter");
         console.log("connected");
