@@ -44,12 +44,14 @@ export default {
 
             const todoContract = new Contract("new3", scatter);
 
-            const trx = await todoContract.transact("createitem", {
-                from: scatter.account.name,
-                item: "apples and oranges"
-            })
+            // const trx = await todoContract.transact("createitem", {
+            //     from: scatter.account.name,
+            //     item: "apples and oranges"
+            // })
+            // console.log(trx);
 
-            console.log(trx);
+            let c = await todoContract.createContract();
+            await c.createitem(scatter.account.name, "apples and oranges");
 
         } catch (e) {
             this.errorMsg = e.message;
