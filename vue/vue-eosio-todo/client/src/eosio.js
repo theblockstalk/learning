@@ -1,22 +1,34 @@
 import ScatterJS from 'scatterjs-core';
-import ScatterEOSIO from 'scatterjs-plugin-eosjs2';
+import ScatterEOS from 'scatterjs-plugin-eosjs2';
 import eosjs from 'eosjs';
 
-ScatterJS.plugins( new ScatterEOSIO() )
+ScatterJS.plugins( new ScatterEOS() )
 
 const CONTRACT_ACCOUNT = 'new3';
 const APP_NAME = "Todo list app";
 
+// const network = {
+//     blockchain: 'eos',
+//     protocol: 'https',
+//     host: 'eos-studio.api.dfuse.dev',
+//     port: 443,
+//     chainId: 'bc31c358a5aaafb5f7ad73a2ef85625f67fe9dc027f8c441fc272027d53f00f6'
+// }
+
 const network = {
     blockchain: 'eos',
     protocol: 'https',
-    host: 'eos-studio.api.dfuse.dev',
+    host: 'nodes.get-scatter.com',
     port: 443,
-    chainId: 'bc31c358a5aaafb5f7ad73a2ef85625f67fe9dc027f8c441fc272027d53f00f6'
+    chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
 }
 
 const requiredFields = { accounts:[network] };
 let scatter, account, eosApi;
+
+ScatterJS.scatter.connect("My app").then(connected => {
+    console.log(connected);
+});
 
 const connect = async function() {
     console.log("Connecting to scatter");
