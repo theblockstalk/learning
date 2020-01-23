@@ -12,45 +12,51 @@ const network = ScatterJS.Network.fromJson({
     protocol:'https'
 });
 
-const requiredFields = { accounts:[network] };
-let connected, scatter, account, eos;
+class Scatter {
+    account = null;
+    eos = null;
+    name = null;
 
-export default {
-    connect: async function() {
-        console.log("connecting to scatter");
+    constructor(name = "My App") {
+        this.name = name;
+    }
 
-        connected = await ScatterJS.scatter.connect('My-App', {network});
+    async connect() {
+        const connected = await ScatterJS.scatter.connect(this.name, {network});
         
         if(!connected) throw new Error("Not connected to scatter");
-        console.log("connected");
 
         await ScatterJS.login();
 
-        account = ScatterJS.account('eos')
+        this.account = ScatterJS.account('eos');
+        console.log(this.account);
 
         const rpc = new JsonRpc(network.fullhost());
-        eos = ScatterJS.eos(network, Api, {rpc});
+        this.eos = ScatterJS.eos(network, Api, {rpc});
 
-        const trx = await eos.transact({
+        const trx = await this.eos.transact({
             actions: [{
                 account: 'eosio.token',
                 name: 'transfer',
                 authorization: [{
-                actor: 'dablockstalk',
-                permission: 'active',
+                actor: this.account.name,
+                permission: this.account.authority,
             }],
             data: {
-                from: 'dablockstalk',
+                from: this.account.name,
                 to: 'b1',
                 quantity: '0.0001 EOS',
-                memo: '',
+                memo: ''
             },
             }]}, {
                 blocksBehind: 3,
                 expireSeconds: 30,
           })
-    },
-    logout: async function() {
-        ScatterJS.logout()
+    }
+    
+    async logout() {
+        await ScatterJS.logout()
     }
 }
+
+export default Scatter;

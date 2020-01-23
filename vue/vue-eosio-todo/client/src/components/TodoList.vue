@@ -4,13 +4,13 @@
           <TodoListItem v-for="item in todoItems"
             :name="item.name" :key="item.name"/>
       </ul>
+      <p>{{errorMsg}}</p>
   </div>
 </template>
 
 <script>
 import TodoListItem from './TodoListItem';
-// import eosio from '../eosio.js';
-import scatter from '../scatter.js';
+import Scatter from '../scatter.js';
 
 export default {
     name: "TodoList",
@@ -19,6 +19,7 @@ export default {
     },
     data() {
         return {
+            errorMsg: null,
             todoItems: [
                 {
                     name: "Apples",
@@ -35,9 +36,12 @@ export default {
         TodoListItem
     },
     async created() {
-        scatter.connect();
-        // await eosio.connect();
-        // await eosio.login();
+        try {
+            const scatter = new Scatter("Todo list app");
+            await scatter.connect();
+        } catch (e) {
+            this.errorMsg = e.message;
+        }
     }
 }
 </script>
