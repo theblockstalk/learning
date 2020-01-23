@@ -1,5 +1,7 @@
 <template>
     <div>
+        New todo: <input type="text" v-model="newItem" placeholder="Apples">
+        <button @click="addItem()">Add</button>
         <p v-if="todoItems.length > 0">List</p>
         <TodoListItem v-for="item in todoItems" @toggle="toggleItem" :name="item.name" :id="item.id" :done="item.done" :key="item.name"/>
         <p>{{errorMsg}}</p>
@@ -17,6 +19,7 @@ export default {
         return {
             accountName: null,
             errorMsg: null,
+            newItem: "",
             todoItems: [],
             scatter: null,
             todoContract: null
@@ -41,6 +44,20 @@ export default {
             } catch (e) {
                 this.errorMsg = e.message;
             }
+        },
+        async addItem() {
+            try {
+                let trx = await this.todoContract.createitem(this.scatter.account.name, this.newItem);
+                if (trx.processed && trx.processed.receipt.status === "executed") {
+                    // refresh table
+                } else {
+                    console.log(trx);
+                    throw new Error("Transaction did not execute sucessfull. id: ", trx.transaction_id);
+                }
+            } catch (e) {
+                this.errorMsg = e.message;
+            }
+            this.newItem = "";
         }
     },
     async created() {
