@@ -12,19 +12,18 @@ const network = ScatterJS.Network.fromJson({
     protocol:'https'
 });
 
-class Scatter {
-    account = null;
-    eos = null;
-    name = null;
+let connected, scatter, account, eos;
 
-    constructor(name = "My App") {
-        this.name = name;
-    }
+class Scatter {
+    connected = false;
 
     async connect() {
-        const connected = await ScatterJS.scatter.connect(this.name, {network});
+        console.log("connecting to scatter");
+
+        this.connected = await ScatterJS.scatter.connect('My-App', {network});
         
-        if(!connected) throw new Error("Not connected to scatter");
+        if(!this.connected) throw new Error("Not connected to scatter");
+        console.log("connected");
 
         await ScatterJS.login();
 
@@ -51,12 +50,9 @@ class Scatter {
             }]}, {
                 blocksBehind: 3,
                 expireSeconds: 30,
-          })
-    }
-    
-    async logout() {
-        await ScatterJS.logout()
+          }
+        )
     }
 }
 
-export default Scatter;
+export default Scatter
