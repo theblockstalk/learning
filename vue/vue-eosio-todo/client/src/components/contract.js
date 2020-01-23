@@ -7,20 +7,18 @@ class Contract {
         this.scatter = scatter;
     }
 
-    async createContract() {
+    async init() {
         const contract = await this.scatter.eos.getContract(this.contractAccount);
 
-        let c = {};
+        let contractAccount = this.contractAccount;
+        let scatter = this.scatter;
+        let c = this;
 
         for (let action of contract.actions) {
             const name = action[0];
             const fields = action[1].fields;
-
-            const contractAccount = this.contractAccount;
-            const scatter = this.scatter;
-
+            
             c[name] = async function(...args) {
-                console.log("Calling action: " + name)
                 const data = {};
                 for (let i = 0; i < args.length; i++) {
                     data[fields[i].name] = args[i]
@@ -29,8 +27,6 @@ class Contract {
                 return await transact(contractAccount, name, data, scatter);
             }
         }
-
-        return c;
     }
 }
 
