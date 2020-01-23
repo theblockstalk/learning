@@ -49,7 +49,7 @@ export default {
             try {
                 let trx = await this.todoContract.createitem(this.scatter.account.name, this.newItem);
                 if (trx.processed && trx.processed.receipt.status === "executed") {
-                    // refresh table
+                    await this.refreshList();
                 } else {
                     console.log(trx);
                     throw new Error("Transaction did not execute sucessfull. id: ", trx.transaction_id);
@@ -58,7 +58,20 @@ export default {
                 this.errorMsg = e.message;
             }
             this.newItem = "";
+        },
+        async refreshList() {
+            const todolist = await this.todoContract.todo(this.scatter.account.name);
+            this.todoItems = [];
+            for (let row of todolist.rows) {
+                this.todoItems.push({
+                    id: row.id,
+                    name: row.todo,
+                    done: row.completed === 0 ? false : true
+                })
+            }            
+
         }
+
     },
     async created() {
         try {
@@ -69,15 +82,7 @@ export default {
             this.todoContract = new Contract("new3", this.scatter);
             await this.todoContract.initializeContract();
 
-            const todolist = await this.todoContract.todo(this.scatter.account.name);
-            this.todoItems = [];
-            for (let row of todolist.rows) {
-                this.todoItems.push({
-                    id: row.id,
-                    name: row.todo,
-                    done: row.completed === 0 ? false : true
-                })
-            }            
+            await this.refreshList();
         } catch (e) {
             this.errorMsg = e.message;
         }
