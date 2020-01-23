@@ -19,8 +19,11 @@ class Contract {
             const fields = action[1].fields;
             
             c[name] = async function(...args) {
+                let len = args.length;
+                if (len !== fields.length) throw new Error("Number of arguments does not match action");
+                
                 const data = {};
-                for (let i = 0; i < args.length; i++) {
+                for (let i = 0; i < len; i++) {
                     data[fields[i].name] = args[i]
                 }
 
