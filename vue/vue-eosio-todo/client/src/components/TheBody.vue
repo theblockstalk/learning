@@ -32,6 +32,7 @@ export default {
                 name: scatter.account.name,
                 contract: todoContract
             })
+            await this.$store.dispatch('refreshItems');
         } catch (e) {
             console.error(e);
         }

@@ -6,10 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
       userName: null,
-      errorMsg: null,
       todoItems: [],
       todoContract: null,
-      contractAccount: "new3"
+      contractAccount: "new3",
     },
     mutations: {
       SET_ACCOUNT_NAME(state, name) {
@@ -21,31 +20,37 @@ export default new Vuex.Store({
       SET_TODO_ITEMS(state, todoItems) {
         state.todoItems = todoItems;
       },
-      ADD_NEW_ITEM(state, item) {
-        state.todoItems.push({
-          id: item.id,
-          name: item.name,
-          done: item.done
-        });
-      },
       SET_TODO_CONTRACT(state, todoContract) {
         state.todoContract = todoContract;
       }
     },
     actions: {
-      login({commit}, payload) {
-        commit('SET_ACCOUNT_NAME', payload.name);
-        commit('SET_TODO_CONTRACT', payload.contract);
+      login(context, payload) {
+        context.commit('SET_ACCOUNT_NAME', payload.name);
+        context.commit('SET_TODO_CONTRACT', payload.contract);
       },
-      addItem({commit}, item) {
-        commit('ADD_NEW_ITEM', item);
-      }
-    },
-    getters: {
-      getDoneItems(state) {
-        return state.todoItems.filter( (item) => {
-          return item.done;
-        });
+      addItem(context, item) {
+        context.commit('ADD_NEW_ITEM', item);
+      },
+      toggleItem(context, itemId) {
+        let todoItems = context.state.todoItems;
+        let index = todoItems.findIndex(item => {
+          return itemId === item.id
+        })
+        todoItems[index].done = !todoItems[index].done;
+        context.commit('SET_TODO_ITEMS', todoItems);
+      },
+      async refreshItems(context) {
+        const todolist = await context.state.todoContract.todo(context.state.userName);
+        let todoItems = [];
+        for (let row of todolist.rows) {
+            todoItems.push({
+                id: row.id,
+                name: row.todo,
+                done: row.completed === 0 ? false : true
+            })
+        }
+        context.commit('SET_TODO_ITEMS', todoItems);
       }
     }
   })

@@ -29,65 +29,34 @@ export default {
     },
     methods: {
         async toggleItem(id) {
-            // try {
-            //     let trx = await this.todoContract.toggledone(this.scatter.account.name, id);
-            //     if (trx.processed && trx.processed.receipt.status === "executed") {
-            //         let index = this.todoItems.findIndex(item => {
-            //             return id === item.id
-            //         })
-            //         this.todoItems[index].done = !this.todoItems[index].done;
-            //     } else {
-            //         console.log(trx);
-            //         throw new Error("Transaction did not execute sucessfull. id: ", trx.transaction_id);
-            //     }
-            // } catch (e) {
-            //     this.errorMsg = e.message;
-            // }
+            try {
+                let trx = await this.$store.state.todoContract.toggledone(this.$store.state.userName, id);
+                if (trx.processed && trx.processed.receipt.status === "executed") {
+                    await this.$store.dispatch('toggleItem', id)
+                } else {
+                    console.error(trx);
+                    throw new Error("Transaction did not execute sucessfull. id: ", trx.transaction_id);
+                }
+            } catch (e) {
+                this.errorMsg = e.message;
+            }
         },
         async addItem() {
-            // try {
-            //     let trx = await this.todoContract.createitem(this.scatter.account.name, this.newItem);
-            //     if (trx.processed && trx.processed.receipt.status === "executed") {
-            //         await this.refreshList();
-            //     } else {
-            //         console.log(trx);
-            //         throw new Error("Transaction did not execute sucessfull. id: ", trx.transaction_id);
-            //     }
-            // } catch (e) {
-            //     this.errorMsg = e.message;
-            // }
-            // this.newItem = "";
+            try {
+                let trx = await this.$store.state.todoContract.createitem(this.$store.state.userName, this.newItem);
+                if (trx.processed && trx.processed.receipt.status === "executed") {
+                    await this.$store.dispatch('refreshItems');
+                } else {
+                    console.log(trx);
+                    throw new Error("Transaction did not execute sucessfull. id: ", trx.transaction_id);
+                }
+            } catch (e) {
+                this.errorMsg = e.message;
+            }
+            this.newItem = "";
         },
-        async refreshList() {
-            // const todolist = await this.todoContract.todo(this.scatter.account.name);
-            // this.todoItems = [];
-            // for (let row of todolist.rows) {
-            //     this.todoItems.push({
-            //         id: row.id,
-            //         name: row.todo,
-            //         done: row.completed === 0 ? false : true
-            //     })
-            // }            
 
-        }
-
-    },
-    // async created() {
-    //     try {
-    //         this.scatter = new Scatter("Todolist");
-    //         await this.scatter.connect();
-    //         await this.scatter.login();
-
-    //         await this.$store.dispatch('setAccount', this.scatter.account.name);
-
-    //         this.todoContract = new Contract(this.contractAddress, this.scatter);
-    //         await this.todoContract.initializeContract();
-
-    //         await this.refreshList();
-    //     } catch (e) {
-    //         this.errorMsg = e.message;
-    //     }
-    // }
+    }
 }
 </script>
 
