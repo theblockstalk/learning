@@ -1,9 +1,22 @@
 <template>
     <div>
-        New todo: <input type="text" v-model="newItem" placeholder="Apples">
-        <button @click="addItem()">Add</button>
-        <p v-if="todoItems.length > 0">List</p>
-        <TodoListItem v-for="item in todoItems" @toggle="toggleItem" :name="item.name" :id="item.id" :done="item.done" :key="item.name"/>
+        <b-row>
+            <b-col>
+                <form>
+                    <div class="form-group">
+                        <label>New todo item:</label>
+                        <input type="text" class="form-control" v-model="newItem" placeholder="Apples">
+                    </div>
+                    <button type="button" class="btn btn-primary" @click="addItem()">Add</button>
+                </form>
+            </b-col>
+            <b-col>
+                <p v-if="todoItems.length > 0">List</p>
+                <ul class="list-group">
+                    <TodoListItem v-for="item in todoItems" @toggle="toggleItem" :name="item.name" :id="item.id" :done="item.done" :key="item.name"/>
+                </ul>
+            </b-col>
+        </b-row>
         <p>{{errorMsg}}</p>
     </div>
 </template>

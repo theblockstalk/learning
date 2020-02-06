@@ -1,5 +1,5 @@
 <template>
-    <div @click="toggle()" :class="{done: done}">{{name}}</div>
+    <li class="list-group-item" @click="toggle()" :class="{done: done}">{{name}}</li>
 </template>
 
 <script>

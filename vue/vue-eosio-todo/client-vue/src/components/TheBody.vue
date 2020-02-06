@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <b-container>
       <p>Logged in as: {{userName}}</p>
       <TodoList />
-  </div>
+  </b-container>
 </template>
 
 <script>
