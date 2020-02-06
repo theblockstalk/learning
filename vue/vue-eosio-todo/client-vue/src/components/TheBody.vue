@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
       <p>Logged in as: {{userName}}</p>
       <TodoList />
   </div>
