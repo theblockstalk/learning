@@ -10,6 +10,8 @@
   "dependencies": {
     "@scatterjs/core": "^2.7.51",
     "@scatterjs/eosjs2": "^1.5.33",
+    "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.2.2",
     "core-js": "^3.4.4",
     "eosjs": "^20.0.0",
     "vue": "^2.6.10",
