@@ -4,13 +4,13 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    state: {
+    state: { // same as "store" in Redux
       userName: null,
       todoItems: [],
       todoContract: null,
       contractAccount: "new3",
     },
-    mutations: {
+    mutations: { // same as "reducers" in Redux
       SET_ACCOUNT_NAME(state, name) {
         state.userName = name;
       },
@@ -24,14 +24,17 @@ export default new Vuex.Store({
         state.todoContract = todoContract;
       }
     },
-    actions: {
+    actions: { // same as "actions" in Redux
+      // Store the logged in users account name and the contract
       login(context, payload) {
         context.commit('SET_ACCOUNT_NAME', payload.name);
         context.commit('SET_TODO_CONTRACT', payload.contract);
       },
+      // Add an item to the todo list
       addItem(context, item) {
         context.commit('ADD_NEW_ITEM', item);
       },
+      // Toggle if an item is done or not
       toggleItem(context, itemId) {
         let todoItems = context.state.todoItems;
         let index = todoItems.findIndex(item => {
@@ -40,6 +43,7 @@ export default new Vuex.Store({
         todoItems[index].done = !todoItems[index].done;
         context.commit('SET_TODO_ITEMS', todoItems);
       },
+      // Fetch the todo list items from the contract again (from the blockchain) and update Vuex with them
       async refreshItems(context) {
         const todolist = await context.state.todoContract.todo(context.state.userName);
         let todoItems = [];

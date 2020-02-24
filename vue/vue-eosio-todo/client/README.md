@@ -12,7 +12,7 @@ npm install
 npm run serve
 ```
 
-2. Download Scatter and install
+2. Download Scatter Descktop and install
 ```
 https://get-scatter.com/
 ```

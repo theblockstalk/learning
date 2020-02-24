@@ -2,11 +2,21 @@ class Contract {
     contractAccount;
     scatter;
 
+    /* 
+     * @param contractAccount - the name of the account on the network where the smart contract lives
+     * @param scatter - connected and logged in scatter object
+     */
     constructor(contractAccount, scatter) {
         this.contractAccount = contractAccount;
         this.scatter = scatter;
     }
 
+    /* Initializes the contract to have useful action and table access functions
+     *
+     * The initialised object will have one function for each of the
+     * - actions on the smart contract. These functions take the same arguments in the same order as that they are defined in the smart contract and return a tx receipt.
+     * - tables in the smart contract. These functions take one argument each, the scope of the table to search within and return the data from the table.
+     */
     async initializeContract() {
         const contract = await this.scatter.eos.getContract(this.contractAccount);
         const abi = await this.scatter.eos.getAbi(this.contractAccount);
@@ -15,7 +25,7 @@ class Contract {
         let scatter = this.scatter;
         let c = this;
 
-        // Create actions calles
+        // Create actions calls
         for (let action of contract.actions) {
             const name = action[0];
             const fields = action[1].fields;

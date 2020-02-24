@@ -4,6 +4,8 @@ import {JsonRpc, Api} from 'eosjs'
 
 ScatterJS.plugins( new ScatterEOS() );
 
+// Defines what network to connect to
+// This currently connects to the 1-node network from https://app.eosstudio.io
 const network = ScatterJS.Network.fromJson({
     blockchain:'eos',
     chainId:'bc31c358a5aaafb5f7ad73a2ef85625f67fe9dc027f8c441fc272027d53f00f6',

@@ -7,7 +7,18 @@ CONTRACT todolist : public contract {
   public:
     using contract::contract;
 
+    /* Adds a new item to the user's todo list
+     *
+     * @param from - the users account name
+     * @param item - the item to add to the list
+     */
     ACTION createitem(name from, string item);
+
+    /* Toggles a todo item done/not done
+     *
+     * @param from - the users account name
+     * @param item - the todo item's id
+     */
     ACTION toggledone(name from, uint32_t id);
     ACTION clear();
 
