@@ -19,5 +19,6 @@ int main()
         cout << test1_board << endl << test1_soln_board << endl;
         throw "Boards do not match";
     }
+    
     return 0;
 }
