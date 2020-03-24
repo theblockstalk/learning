@@ -1,3 +1,4 @@
 #include "board.h"
 
-board::board() : my_board(9*9*9) {}
+board::board(vector<int> &points) : my_board(points) {
+}
