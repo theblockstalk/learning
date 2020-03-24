@@ -1,5 +1,5 @@
 #include <iostream>
-#include "classes/board.h"
+#include "classes/Board.h"
 
 using std::cout, std::endl;
 
