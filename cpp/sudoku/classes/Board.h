@@ -12,16 +12,18 @@ class Board {
     private:
         vector<int> my_board;
 
+        // tries the next free index's available points, returns false if no points are available
+        bool next(size_t current_index);
+
     public:
         Board(vector<int> &points);
         Board(Board &b);
 
-        void solve();
+        bool solve();
+        // returns the next free index, returns -1 if none are free
+        size_t next_free_index(size_t current_index);
 
-        // returns the next free index, throws if none are free
-        int next_free_index(size_t current_index);
-
-        // returns allowed points, throws if none are allowed
+        // returns allowed points
         vector<int> allowed_points(size_t index);
 
         friend ostream& operator<<(ostream& os, const Board& b)
