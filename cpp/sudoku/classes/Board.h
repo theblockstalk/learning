@@ -17,10 +17,26 @@ class Board {
         friend ostream& operator<<(ostream& os, const Board& b)
         {
             int count = 0;
+            const std::string break_line = "----------------------";
+            os << break_line << endl;
+            os << "| ";
             for( const int it : b.my_board ) {
-                os << ((it == 0) ? ' ' : it) << ' ';
-                if (count % 9 == 0)
+                if (it == 0)
+                    os << ' ';
+                else
+                    os << it;
+                
+                if((count+1) % 3 == 0)
+                    os << '|';
+                if ((count+1) % 9 == 0)
+                {
                     os << endl;
+                    if ((count+1) % 27 == 0)
+                        os << break_line << endl;
+                    if (count != 80)
+                        os << '|';
+                }
+                os << ' ';
                 ++count;
             }
                 
@@ -31,7 +47,7 @@ class Board {
         {
             if ( b1.my_board.size() != b2.my_board.size() ) throw "Boards have different sizes";
 
-            for(std::vector<int>::size_type i = 0; i != b1.my_board.size(); i++) {
+            for(vector<int>::size_type i = 0; i != b1.my_board.size(); i++) {
                 if (b1.my_board[i] != b2.my_board[i]) return false;
             }
 

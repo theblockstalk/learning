@@ -11,7 +11,8 @@ int main()
 {
     cout << "Starting tests" << endl;
 
-    Board test1_board = Files::read_board("test1.txt");
+    Board test1_board = Files::read_board("../tests/test1.txt");
+    cout << "Input board" << endl << test1_board << endl;
     Sudoku test1(test1_board);
     test1.solve();
     Board test1_soln_board = Files::read_board("test1-solution.txt");
