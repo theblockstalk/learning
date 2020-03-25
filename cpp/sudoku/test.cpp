@@ -25,10 +25,20 @@ void solve_board(string board_file, string board_solution_file)
 
 int main()
 {
-    cout << "Starting tests" << endl;
+    try {
+        cout << "Starting tests" << endl;
 
-    solve_board("../tests/test1.txt", "../tests/test1-solution.txt");
-    solve_board("../tests/hard1.txt", "../tests/hard1-solution.txt");
-    solve_board("../tests/impossible.txt", "../tests/hard1-solution.txt");
+        solve_board("../tests/test1.txt", "../tests/test1-solution.txt");
+        solve_board("../tests/hard1.txt", "../tests/hard1-solution.txt");
+        try {
+            solve_board("../tests/impossible.txt", "");
+        } catch (char const* e) {
+            cout << e << endl;
+        }
+    } catch (const char* e) {
+        cout << e << endl;
+        return 1;
+    }
+
     return 0;
 }
