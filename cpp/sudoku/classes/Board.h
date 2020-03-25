@@ -5,6 +5,7 @@
 #include <iostream>
 
 using std::ostream, std::endl;
+using std::size_t;
 using std::vector;
 
 class Board {
@@ -13,6 +14,15 @@ class Board {
 
     public:
         Board(vector<int> &points);
+        Board(Board &b);
+
+        void solve();
+
+        // returns the next free index, throws if none are free
+        int next_free_index(size_t current_index);
+
+        // returns allowed points, throws if none are allowed
+        vector<int> allowed_points(size_t index);
 
         friend ostream& operator<<(ostream& os, const Board& b)
         {
@@ -39,7 +49,7 @@ class Board {
                 os << ' ';
                 ++count;
             }
-                
+            
             return os;
         }
 
