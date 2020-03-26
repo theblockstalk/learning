@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/Sudoku_tests",
+            "program": "${workspaceFolder}/build/Main",
             "args": ["tests/test1.txt"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build",
