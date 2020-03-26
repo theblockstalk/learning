@@ -5,6 +5,7 @@
 #include <string>
 #include <algorithm>
 #include <list>
+#include <exception>
 
 class Cypher {
     private:
@@ -12,7 +13,7 @@ class Cypher {
 
     public:
         Cypher(std::string);
-        void encrypt();
+        void encrypt(std::string);
 
         friend std::ostream& operator<<(std::ostream& os, const Cypher& c)
         {
