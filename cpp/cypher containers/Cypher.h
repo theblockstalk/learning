@@ -17,7 +17,6 @@ class Cypher {
         friend std::ostream& operator<<(std::ostream& os, const Cypher& c)
         {
             for(std::list<char>::const_iterator it = c.data.begin(); it != c.data.end(); ++it) {
-                char ch = *it;
                 os << *it;
             }
             return os;

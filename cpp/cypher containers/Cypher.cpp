@@ -2,8 +2,5 @@
 
 using std::list, std::string;
 
-Cypher::Cypher(std::string _input)
-{
-    std::copy(_input.begin(), _input.end(), data.begin());
-}
+Cypher::Cypher(std::string str) : data(str.begin(), str.end()) {}
 
