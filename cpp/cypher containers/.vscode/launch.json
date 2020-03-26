@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/Main",
+            "program": "${workspaceFolder}/build/Cypher",
             "args": ["tests/test1.txt"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build",

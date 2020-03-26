@@ -1,8 +1,8 @@
 #include <iostream>
-#include <iterator>
-#include <algorithm>
+#include "Cypher.h"
 
 int main()
 {
-    
+    Cypher c("What do you want!");
+    std::cout << c << std::endl;
 }
