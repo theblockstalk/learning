@@ -15,10 +15,12 @@ void Cypher::encrypt(string key)
 
     string::iterator its = key.begin();
     for(list<char>::iterator it = data.begin(); it != data.end(); ++it)
-    // for(auto const& it: data)
     {
-        *it = ((*it - ' ') + (*its - ' ')) % ('~' - ' ');
-        
+        int code = int(*it) + int(*its) - int(' ');
+        if (code > int('~'))
+            code -= int('~') - int(' ');
+        *it = char(code);
+
         ++its;
         if (its == key.end())
             its = key.begin();
@@ -32,9 +34,11 @@ void Cypher::decrypt(string key)
     string::iterator its = key.begin();
     for(list<char>::iterator it = data.begin(); it != data.end(); ++it)
     {
-        *it = ((*it - ' ') - (*its - ' '));
-        if (*it < 0) *it += '~';
-        
+        int code = int(*it) - int(*its) + int(' ');
+        if (code < int(' '))
+            code += int('~') - int(' ');
+        *it = char(code);
+
         ++its;
         if (its == key.end())
             its = key.begin();
