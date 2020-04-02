@@ -33,7 +33,7 @@ ol, ul {
 }
 
 .square.win {
-  background: blue;
+  background: greenyellow;
 }
 
 .square:focus {

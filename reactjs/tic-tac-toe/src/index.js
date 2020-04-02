@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Square(props) {
+  let className = "square" + (props.win ? " win" : "");
   return (
     <button
-      className="square"
+      className={className}
       onClick={ props.onClick }>
       {props.value}
     </button>
   );
 }
-
 
 function calculateWinner(squares) {
   const lines = [
@@ -39,26 +39,22 @@ function calculateWinner(squares) {
 class Board extends React.Component {
   renderSquare(i) {
     const line = this.props.line;
-    if (line && line.includes(i))
-      return <Square
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
-        />;
-    else
-      return <Square className="win"
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
-        />;
+    return <Square
+      win={line && line.includes(i)}
+      // win={i===3}
+      value={this.props.squares[i]}
+      onClick={() => this.props.onClick(i)}
+      />;
   }
 
   renderRow(row) {
-    let squares = [];
+    let cols = [];
     for (let i=0; i<3; i++)
-      squares.push(this.renderSquare(3*row+i));
+    cols.push(this.renderSquare(3*row+i));
     
     return (
       <div className="board-row">
-        {squares}
+        {cols}
       </div>
     )
   }
@@ -157,13 +153,13 @@ class Game extends React.Component {
     }
     else
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-
+    
     return (
       <div className="game">
         <div className="game-board">
           <Board
             squares={current.squares}
-            lines={winner.line}
+            line={winner.line}
             onClick={(i) => this.handleClick(i)}
         />
         </div>
