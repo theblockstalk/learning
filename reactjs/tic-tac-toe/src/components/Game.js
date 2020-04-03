@@ -41,6 +41,10 @@ function calculateWinner(squares) {
         stepNumber: 0,
         ascOrder: true
       }
+      this.handleClick = this.handleClick.bind(this);
+      this.jumpTo = this.jumpTo.bind(this);
+      this.asc = this.asc.bind(this);
+      this.desc = this.desc.bind(this);
     }
   
     handleClick(i) {
@@ -72,8 +76,21 @@ function calculateWinner(squares) {
         xIsNext: (step % 2) === 0,
       })
     }
-  
+
+    asc() {
+      this.setState({
+        ascOrder: true
+      });
+    }
+
+    desc() {
+      this.setState({
+        ascOrder: false
+      });
+    }
+
     render() {
+      // let thisObj = this;
       const history = this.state.history;
       const current = history[this.state.stepNumber];
       const winner = calculateWinner(current.squares);
@@ -87,7 +104,7 @@ function calculateWinner(squares) {
           return desc
         }
       }
-  
+
       let moves = history.map((step, move) => {
         const desc = move ?
           'Go to move #' + move + ' (' + step.move.row + ', ' + step.move.col + ')':
@@ -114,19 +131,6 @@ function calculateWinner(squares) {
       else
         status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
       
-      let thisObj = this;
-      function asc() {
-        let state = thisObj.state;
-        state.ascOrder=true;
-        thisObj.setState(state);
-      }
-  
-      function desc() {
-        let state = thisObj.state;
-        state.ascOrder=false;
-        thisObj.setState(state);
-      }
-      
       return (
         <div className="game">
           <div className="game-board">
@@ -134,12 +138,12 @@ function calculateWinner(squares) {
               squares={current.squares}
               line={winner.line}
               onClick={(i) => this.handleClick(i)}
-          />
+            />
           </div>
           <div className="game-info">
             <div>{status}</div>
             <ol>{moves}</ol>
-            <div>Sort <a onClick={asc}><u>asc</u></a> / <a onClick={desc}><u>desc</u></a></div>
+            <div>Sort <a onClick={this.asc}><u>asc</u></a> / <a onClick={this.desc}><u>desc</u></a></div>
           </div>
         </div>
       );
