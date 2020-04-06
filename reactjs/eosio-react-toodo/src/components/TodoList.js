@@ -4,10 +4,11 @@ import TodoListItem from './TodoListItem';
 class TodoList extends React.Component {
   render() {
     const list = this.props.list.map((item) => {
-      if (item.done)
-        return <TodoListItem name={item.label} checked/>
-      else
-        return <TodoListItem name={item.label}/>
+      return <TodoListItem
+        name={item.label}
+        onClick={() => this.props.toggleItem(item.id)}
+        checked={item.done}
+      />
     })
     return (
       <div style={{width:'70%'}}>

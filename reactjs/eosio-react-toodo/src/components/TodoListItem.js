@@ -20,7 +20,7 @@ class TodoListItem extends React.Component {
 
     return (
         <Box display="flex" justifyContent="flex-start">
-          <Button style={buttonStyle}>
+          <Button style={buttonStyle} onClick={this.props.onClick}>
             {this.props.checked
               ? <CheckCircleOutlineIcon style={iconStyle}/>
               : <RadioButtonUncheckedIcon style={iconStyle}/>
