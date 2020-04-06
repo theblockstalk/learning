@@ -46,20 +46,6 @@ class Body extends React.Component {
   }
 
   render() {
-    const todoData = [{
-      id: 0,
-      label: "bacon",
-      done: true
-    },{
-      id: 1,
-      label: "cheese",
-      done: true
-    },{
-      id: 2,
-      label: "lettuce",
-      done: false
-    }]
-
     return (
       <Container maxWidth="sm">
         {this.state.loggedIn === false
@@ -70,7 +56,9 @@ class Body extends React.Component {
               onChangePkey={this.onChangePkey}
               onClick={this.onLogin}
               />
-          : <Todo list={todoData} todoContract={this.state.todoContract}/>
+          : <Todo
+            todoContract={this.state.todoContract}
+            />
       }
       </Container>
     );

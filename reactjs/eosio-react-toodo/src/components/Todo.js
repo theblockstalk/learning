@@ -16,6 +16,25 @@ class Todo extends React.Component {
     this.toggleItem = this.toggleItem.bind(this);
   }
 
+  async componentDidMount() {
+    const todoContract = this.props.todoContract;
+    const accountName = todoContract.eosio.accountName
+    const items = await todoContract.todo(accountName)
+
+    let list = [];
+    items.rows.forEach((item) => {
+      list.push({
+        id: item.id,
+        label: item.todo,
+        done: item.completed === 0 ? false : true
+      })
+    })
+
+    this.setState({
+      list: list
+    })
+  }
+
   newItem() {
     let list = this.state.list.slice();
 
