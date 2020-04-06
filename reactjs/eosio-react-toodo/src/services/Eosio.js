@@ -10,21 +10,23 @@ class Eosio {
         this.rpc = rpc;
 
         this.api = new Api({ rpc, signatureProvider });
+        console.log(this);
     }
 
-    async initializeEosio(
-        let accountRes;
-        try {
-            console.log(this.rpc.get_account)
-            accountRes = await this.rpc.get_account(this.accountName);
-            // accountRes = await this.rpc.get_account({account_name: this.accountName});
-            this.rpc.get_account(this.accountName).then((res) 
-    );
-
-        } catch (e) {
-            console.error(e)
-        }
-        console.log(accountRes);
+    async initializeEosio() {
+        // let accountRes = await this.rpc.get_account("jack32");
+        const get_account = this.rpc.get_info;
+        // console.log(get_account);
+        get_account(this.accountName)
+            .then((res) => console.log)
+            .catch((e) => console.error);
+        // try {
+        //     // accountRes = await this.rpc.get_account({account_name: this.accountName});
+        //     // accountRes = await this.rpc.get_account(this.accountName);
+        // } catch (e) {
+        //     console.error(e)
+        // }
+        // console.log(accountRes);
     }
 
     async getTable(code, scope, table) {

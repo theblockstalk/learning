@@ -2,8 +2,9 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 import Todo from './Todo';
 import Login from './Login';
-import Eosio from  '../services/Eosio';
-import Contract from '../services/Contract';
+// import Eosio from  '../services/Eosio';
+// import Contract from '../services/Contract';
+import Button from '@material-ui/core/Button';
 
 class Body extends React.Component {
   constructor(props) {
@@ -17,7 +18,8 @@ class Body extends React.Component {
 
     this.onChangePkey = this.onChangePkey.bind(this);
     this.onChangeAccount = this.onChangeAccount.bind(this);
-    this.onLogin = this.onLogin.bind(this);
+    // this.onLogin = this.onLogin.bind(this);
+    this.asyncF = this.asyncF.bind(this);
   }
 
   onChangePkey(event) {
@@ -32,18 +34,36 @@ class Body extends React.Component {
     })
   }
 
-  async onLogin() {
-    const eosio = new Eosio(this.state.account, this.state.pkey);
+  // onLogin = async function() {
+  //   const eosio = new Eosio(this.state.account, this.state.pkey);
 
-    await eosio.initializeEosio();
-    // const todoContract = new Contract("todolist", eosio)
+  //   console.log("0 sec")
+  //   await new Promise((resolve, reject) => {
+  //     setInterval(() => {
+  //       console.log("5 sec")
+  //     }, 5000)
+  //   })
 
-    // await todoContract.initializeContract();
+  //   // await eosio.initializeEosio();
+  //   // const todoContract = new Contract("todolist", eosio)
 
-    this.setState({
-      loggedIn: true,
-      // todoContract: todoContract
+  //   // await todoContract.initializeContract();
+
+  //   this.setState({
+  //     loggedIn: true,
+  //     // todoContract: todoContract
+  //   })
+  // }
+
+  async asyncF() {
+    console.log("start")
+    await new Promise((resolve, reject) => {
+      setInterval(() => {
+        console.log("5 sec")
+        resolve();
+      }, 5000)
     })
+    console.log("finish")
   }
 
   render() {
@@ -59,17 +79,20 @@ class Body extends React.Component {
       id: 2,
       label: "lettuce",
       done: false
-    },]
+    }]
+
     return (
       <Container maxWidth="sm">
+        <Button onClick={this.asyncF}>Click me!</Button>
         {this.state.loggedIn === false
           ? <Login
               account={this.state.account}
               onChangeAccount={this.onChangeAccount}
               pkey={this.state.pkey}
               onChangePkey={this.onChangePkey}
-              onClick={this.onLogin}/>
-          : <Todo list={todoData} account={this.state.account} todoContract={this.state.todoContract}/>
+              // onClick={this.asyncF}
+              />
+          : <Todo list={todoData} todoContract={this.state.todoContract}/>
       }
       </Container>
     );
@@ -81,6 +104,8 @@ export default Body;
 /*
 Todo
 - field validation
+- check account name and chain id
+- error handling
 - use react router
 - loggout
 - redux
