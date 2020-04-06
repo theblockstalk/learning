@@ -10,9 +10,9 @@
             "request": "launch",
             "reAttach": true,
             "url": "http://localhost:3000/",
-            "webRoot": "${workspaceFolder}/client/src",
+            "webRoot": "${workspaceFolder}/client/react-app/src",
             "pathMappings": [{
-                "url": "webpack:///client/src/",
+                "url": "webpack:///client/react-app/src/",
                 "path": "${webRoot}/"
             }]
         }

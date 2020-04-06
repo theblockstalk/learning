@@ -17,6 +17,10 @@ class Todo extends React.Component {
   }
 
   async componentDidMount() {
+    await this.refreshItems();
+  }
+
+  async refreshItems() {
     const todoContract = this.props.todoContract;
     const accountName = todoContract.eosio.accountName
     const items = await todoContract.todo(accountName)
@@ -36,13 +40,8 @@ class Todo extends React.Component {
   }
 
   newItem() {
-    let list = this.state.list.slice();
-
-    let maxId = 0;
-    list.forEach( (item) => {
-      if (item.id > maxId) maxId = item.id;
-    })
-
+    const todoContract = this.props.todoContract;
+    todoContract.
     list.push({
       id: maxId+1,
       label: this.state.newItem,
