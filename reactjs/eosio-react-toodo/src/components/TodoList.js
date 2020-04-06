@@ -5,6 +5,7 @@ class TodoList extends React.Component {
   render() {
     const list = this.props.list.map((item) => {
       return <TodoListItem
+        key={item.id}
         name={item.label}
         onClick={() => this.props.toggleItem(item.id)}
         checked={item.done}

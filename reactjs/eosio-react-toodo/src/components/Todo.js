@@ -1,4 +1,3 @@
-// https://medium.com/@sa.nitawaki/react-native-todo-app-with-hooks-5f279ae2beb6
 import React from 'react';
 import TodoAdd from './TodoAdd';
 import TodoList from './TodoList';
