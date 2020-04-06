@@ -2,6 +2,8 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 import Todo from './Todo';
 import Login from './Login';
+import Eosio from  '../services/Eosio';
+import Contract from '../services/Contract';
 
 class Body extends React.Component {
   constructor(props) {
@@ -31,8 +33,14 @@ class Body extends React.Component {
   }
 
   onLogin() {
+    // const eosio = new Eosio(this.state.pkey);
+    // const todoContract = new Contract("todolist", eosio)
+
+    // await todoContract.initializeContract();
+
     this.setState({
-      loggedIn: true
+      loggedIn: true,
+      // todoContract: todoContract
     })
   }
 
@@ -59,7 +67,7 @@ class Body extends React.Component {
               pkey={this.state.pkey}
               onChangePkey={this.onChangePkey}
               onClick={this.onLogin}/>
-          : <Todo list={todoData}/>
+          : <Todo list={todoData} account={this.state.account} todoContract={this.state.todoContract}/>
       }
       </Container>
     );
