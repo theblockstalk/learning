@@ -54,18 +54,13 @@ class Todo extends React.Component {
     })
   }
 
-  toggleItem(id) {
-    let list = this.state.list.slice();
+  async toggleItem(id) {
+    const todoContract = this.props.todoContract;
+    const accountName = todoContract.eosio.accountName
 
-    list.forEach( (item) => {
-      if (item.id === id) {
-        item.done = !item.done;
-      }      
-    })
+    await todoContract.toggledone(accountName, id);
 
-    this.setState({
-      list: list
-    })
+    await this.refreshItems();
   }
 
   render() {
