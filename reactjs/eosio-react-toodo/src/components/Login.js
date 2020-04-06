@@ -17,7 +17,7 @@ export default function Login(props) {
                         <TextField label="Private key" fullWidth onChange={props.onChangePkey} value={props.pkey}/>
                     </div>
                     <div>
-                        <Button type="submit" color="primary" fullWidth onClick={props.onClick}>Login</Button>
+                        <Button type="button" color="primary" fullWidth onClick={props.onClick}>Login</Button>
                     </div>
                 </form>
             </Box>

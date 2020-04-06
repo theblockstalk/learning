@@ -2,9 +2,8 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 import Todo from './Todo';
 import Login from './Login';
-// import Eosio from  '../services/Eosio';
+import Eosio from  '../services/Eosio';
 // import Contract from '../services/Contract';
-import Button from '@material-ui/core/Button';
 
 class Body extends React.Component {
   constructor(props) {
@@ -34,26 +33,28 @@ class Body extends React.Component {
     })
   }
 
-  // onLogin = async function() {
-  //   const eosio = new Eosio(this.state.account, this.state.pkey);
+  async onLogin() {
+    const eosio = new Eosio(this.state.account, this.state.pkey);
 
-  //   console.log("0 sec")
-  //   await new Promise((resolve, reject) => {
-  //     setInterval(() => {
-  //       console.log("5 sec")
-  //     }, 5000)
-  //   })
+    console.log("start")
+    await new Promise((resolve, reject) => {
+      setInterval(() => {
+        console.log("2 sec")
+        resolve();
+      }, 2000)
+    })
+    console.log("end")
+    console.log(eosio)
+    // await eosio.initializeEosio();
+    // const todoContract = new Contract("todolist", eosio)
 
-  //   // await eosio.initializeEosio();
-  //   // const todoContract = new Contract("todolist", eosio)
+    // await todoContract.initializeContract();
 
-  //   // await todoContract.initializeContract();
-
-  //   this.setState({
-  //     loggedIn: true,
-  //     // todoContract: todoContract
-  //   })
-  // }
+    this.setState({
+      loggedIn: true,
+      // todoContract: todoContract
+    })
+  }
 
   async asyncF() {
     console.log("start")
@@ -83,14 +84,13 @@ class Body extends React.Component {
 
     return (
       <Container maxWidth="sm">
-        <Button onClick={this.asyncF}>Click me!</Button>
         {this.state.loggedIn === false
           ? <Login
               account={this.state.account}
               onChangeAccount={this.onChangeAccount}
               pkey={this.state.pkey}
               onChangePkey={this.onChangePkey}
-              // onClick={this.asyncF}
+              onClick={this.asyncF}
               />
           : <Todo list={todoData} todoContract={this.state.todoContract}/>
       }
