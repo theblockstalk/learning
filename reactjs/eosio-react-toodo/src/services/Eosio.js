@@ -3,13 +3,28 @@ import { JsSignatureProvider } from 'eosjs/dist/eosjs-jssig';
 
 class Eosio {
     constructor(account, pkey) {
-        this.account = account;
+        this.accountName = account;
         const signatureProvider = new JsSignatureProvider([pkey]);
 
-        const rpc = new JsonRpc('https://eos-studio.api.dfuse.dev:8888');
+        const rpc = new JsonRpc('https://eos-studio.api.dfuse.dev');
         this.rpc = rpc;
 
         this.api = new Api({ rpc, signatureProvider });
+    }
+
+    async initializeEosio(
+        let accountRes;
+        try {
+            console.log(this.rpc.get_account)
+            accountRes = await this.rpc.get_account(this.accountName);
+            // accountRes = await this.rpc.get_account({account_name: this.accountName});
+            this.rpc.get_account(this.accountName).then((res) 
+    );
+
+        } catch (e) {
+            console.error(e)
+        }
+        console.log(accountRes);
     }
 
     async getTable(code, scope, table) {

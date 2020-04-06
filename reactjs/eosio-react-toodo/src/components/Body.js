@@ -32,8 +32,10 @@ class Body extends React.Component {
     })
   }
 
-  onLogin() {
-    // const eosio = new Eosio(this.state.pkey);
+  async onLogin() {
+    const eosio = new Eosio(this.state.account, this.state.pkey);
+
+    await eosio.initializeEosio();
     // const todoContract = new Contract("todolist", eosio)
 
     // await todoContract.initializeContract();

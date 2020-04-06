@@ -15,8 +15,8 @@ class Contract {
      * - tables in the smart contract. These functions take one argument each, the scope of the table to search within and return the data from the table.
      */
     async initializeContract() {
-        const contract = await this.eosio.eos.getContract(this.contractAccount);
-        const abi = await this.eosio.eos.getAbi(this.contractAccount);
+        const contract = await this.eosio.rpc.getContract(this.contractAccount);
+        const abi = await this.eosio.rpc.get_abi(this.contractAccount);
         
         let contractAccount = this.contractAccount;
         let c = this;
