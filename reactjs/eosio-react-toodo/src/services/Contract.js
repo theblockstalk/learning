@@ -15,16 +15,20 @@ class Contract {
      * - tables in the smart contract. These functions take one argument each, the scope of the table to search within and return the data from the table.
      */
     async initializeContract() {
-        const contract = await this.eosio.rpc.getContract(this.contractAccount);
         const abi = await this.eosio.rpc.get_abi(this.contractAccount);
         
         let contractAccount = this.contractAccount;
         let c = this;
 
         // Create actions calls
-        for (let action of contract.actions) {
-            const name = action[0];
-            const fields = action[1].fields;
+        for (let action of abi.abi.actions) {
+            const name = action.name;
+            let fields;
+            abi.abi.structs.forEach((struct) => {
+                if (struct.name === action.type) {
+                    fields = struct.fields;
+                }
+            })
             
             c[name] = async function(...args) {
                 let len = args.length;
@@ -40,7 +44,7 @@ class Contract {
         }
 
         // Create table getters
-        for (let table of abi.tables) {
+        for (let table of abi.abi.tables) {
             const name = table.name;
             c[name] = async function(scope) {
                 return await this.eosio.getTable(contractAccount, scope, name);

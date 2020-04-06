@@ -5,28 +5,23 @@ class Eosio {
     constructor(account, pkey) {
         this.accountName = account;
         const signatureProvider = new JsSignatureProvider([pkey]);
-
+        
         const rpc = new JsonRpc('https://eos-studio.api.dfuse.dev');
         this.rpc = rpc;
 
         this.api = new Api({ rpc, signatureProvider });
-        console.log(this);
     }
 
     async initializeEosio() {
-        // let accountRes = await this.rpc.get_account("jack32");
-        const get_account = this.rpc.get_info;
-        // console.log(get_account);
-        get_account(this.accountName)
-            .then((res) => console.log)
-            .catch((e) => console.error);
-        // try {
-        //     // accountRes = await this.rpc.get_account({account_name: this.accountName});
-        //     // accountRes = await this.rpc.get_account(this.accountName);
-        // } catch (e) {
-        //     console.error(e)
-        // }
-        // console.log(accountRes);
+        // TODO: check account matches public key and chain id
+        // determine account permission
+        // const info = await this.rpc.get_info();
+        // const accountRes = await this.rpc.get_account(this.accountName);
+        // accountRes.permissions.forEach((permission) => {
+        //     permission.required_auth.keys.forEach((key) => {
+        //         console.log(key.key)
+        //     })
+        // })
     }
 
     async getTable(code, scope, table) {

@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import Todo from './Todo';
 import Login from './Login';
 import Eosio from  '../services/Eosio';
-// import Contract from '../services/Contract';
+import Contract from '../services/Contract';
 
 class Body extends React.Component {
   constructor(props) {
@@ -17,8 +17,7 @@ class Body extends React.Component {
 
     this.onChangePkey = this.onChangePkey.bind(this);
     this.onChangeAccount = this.onChangeAccount.bind(this);
-    // this.onLogin = this.onLogin.bind(this);
-    this.asyncF = this.asyncF.bind(this);
+    this.onLogin = this.onLogin.bind(this);
   }
 
   onChangePkey(event) {
@@ -35,36 +34,15 @@ class Body extends React.Component {
 
   async onLogin() {
     const eosio = new Eosio(this.state.account, this.state.pkey);
+    await eosio.initializeEosio();
+    const todoContract = new Contract("todolist", eosio)
 
-    console.log("start")
-    await new Promise((resolve, reject) => {
-      setInterval(() => {
-        console.log("2 sec")
-        resolve();
-      }, 2000)
-    })
-    console.log("end")
-    console.log(eosio)
-    // await eosio.initializeEosio();
-    // const todoContract = new Contract("todolist", eosio)
-
-    // await todoContract.initializeContract();
+    await todoContract.initializeContract();
 
     this.setState({
       loggedIn: true,
-      // todoContract: todoContract
+      todoContract: todoContract
     })
-  }
-
-  async asyncF() {
-    console.log("start")
-    await new Promise((resolve, reject) => {
-      setInterval(() => {
-        console.log("5 sec")
-        resolve();
-      }, 5000)
-    })
-    console.log("finish")
   }
 
   render() {
@@ -90,7 +68,7 @@ class Body extends React.Component {
               onChangeAccount={this.onChangeAccount}
               pkey={this.state.pkey}
               onChangePkey={this.onChangePkey}
-              onClick={this.asyncF}
+              onClick={this.onLogin}
               />
           : <Todo list={todoData} todoContract={this.state.todoContract}/>
       }
