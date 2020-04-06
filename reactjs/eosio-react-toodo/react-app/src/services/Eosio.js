@@ -36,15 +36,15 @@ class Eosio {
         });
     }
     
-    async transact(account, receiver, action, data) {
+    async transact(receiver, action, data) {
         try {
             return await this.api.transact({
                 actions: [{
                     account: receiver,
                     name: action,
                     authorization: [{
-                        actor: account.name,
-                        permission: account.authority,
+                        actor: this.accountName,
+                        permission: "active",
                 }],
                 data: data,
                 }]}, {

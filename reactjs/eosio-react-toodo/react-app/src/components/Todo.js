@@ -39,18 +39,13 @@ class Todo extends React.Component {
     })
   }
 
-  newItem() {
+  async newItem() {
     const todoContract = this.props.todoContract;
-    todoContract.
-    list.push({
-      id: maxId+1,
-      label: this.state.newItem,
-      done: false
-    })
+    const accountName = todoContract.eosio.accountName
 
-    this.setState({
-      list: list
-    })
+    await todoContract.createitem(accountName, this.state.newItem);
+
+    await this.refreshItems();
   }
 
   newItemChange(event) {
