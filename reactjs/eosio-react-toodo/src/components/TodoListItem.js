@@ -8,7 +8,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 class TodoListItem extends React.Component {
   render() {
     const buttonStyle={
-      // textAlign: 'left',
+      // textAlign: 'left', // not working :(
       flex: 1,
       flexDirection: "row",
     }

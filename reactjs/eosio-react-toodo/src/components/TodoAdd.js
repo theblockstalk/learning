@@ -10,8 +10,8 @@ class TodoAdd extends React.Component {
 
     return (
       <div>
-        <TextField label="New item" style={textStyle}/>
-        <Button><ControlPointIcon fontSize="large"/></Button>
+        <TextField label="New item" style={textStyle} onChange={this.props.onChange} value={this.props.value}/>
+        <Button onClick={this.props.onSubmit}><ControlPointIcon fontSize="large"/></Button>
       </div>
     );
   }
