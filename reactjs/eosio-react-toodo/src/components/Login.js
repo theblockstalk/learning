@@ -11,10 +11,10 @@ export default function Login(props) {
             <Box>
                 <form noValidate autoComplete="off">
                     <div>
-                        <TextField label="Account name" fullWidth onChange={props.onChangeAccount}/>
+                        <TextField label="Account name" fullWidth onChange={props.onChangeAccount} value={props.account}/>
                     </div>
                     <div>
-                        <TextField label="Private key" fullWidth onChange={props.onChangePkey}/>
+                        <TextField label="Private key" fullWidth onChange={props.onChangePkey} value={props.pkey}/>
                     </div>
                     <div>
                         <Button type="submit" color="primary" fullWidth onClick={props.onClick}>Login</Button>

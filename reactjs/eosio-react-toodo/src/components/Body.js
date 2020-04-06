@@ -7,8 +7,8 @@ class Body extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      account: null,
-      pkey: null,
+      account: "jack32",
+      pkey: "5Kdzjm5LdQypEGTZ7eZcqrUS3BtmfjzpU31ELA8HPTC2ha6eVXZ",
       loggedIn: false,
       todoContract: null
     }
@@ -54,8 +54,10 @@ class Body extends React.Component {
       <Container maxWidth="sm">
         {this.state.loggedIn === false
           ? <Login
-              onChangePkey={this.onChangePkey}
+              account={this.state.account}
               onChangeAccount={this.onChangeAccount}
+              pkey={this.state.pkey}
+              onChangePkey={this.onChangePkey}
               onClick={this.onLogin}/>
           : <Todo list={todoData}/>
       }
@@ -69,5 +71,8 @@ export default Body;
 /*
 Todo
 - field validation
+- use react router
+- loggout
+- redux
 - use password instead of private key
 */
