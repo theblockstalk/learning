@@ -45,9 +45,9 @@ class Eosio {
             });
         }
         
-        this.transact = async function(receiver, action, data) {
+        this.transact = async function(receiver, action, data, options) {
             try {
-                return await api.transact({
+                const tx = await api.transact({
                     actions: [{
                         account: receiver,
                         name: action,
@@ -60,7 +60,12 @@ class Eosio {
                         blocksBehind: 3,
                         expireSeconds: 30,
                   }
-                )    
+                )
+                if (options) {
+                    if (tx.processed.error_code) throw Error("Failed with error code: " + tx.processed.error_code);
+                    if (tx.processed.receipt.status !== options.status) throw Error("Tx status is " + tx.processed.receipt.status);
+                }
+                return tx;
             } catch (e) {
                 console.log('\nCaught exception: ' + e);
                 if (e instanceof RpcError)

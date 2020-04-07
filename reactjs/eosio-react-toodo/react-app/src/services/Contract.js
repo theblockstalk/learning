@@ -39,7 +39,7 @@ class Contract {
                     data[fields[i].name] = args[i]
                 }
 
-                return await this.eosio.transact(contractAccount, name, data);
+                return await this.eosio.transact(contractAccount, name, data, {status: "executed"});
             }
         }
 
