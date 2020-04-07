@@ -14,14 +14,15 @@ class Eosio {
         if (info.chain_id !== network.chainId) throw Error("Chain id is not the same");
 
         const accountRes = await rpc.get_account(accountCopy.name);
-        let isPermissionFound = false;
-        accountRes.permissions.forEach((permission) => {
-            permission.required_auth.keys.forEach((key) => {
-                if (accountCopy.permission === permission.perm_name && key.key === accountCopy.pubkey)
-                    isPermissionFound = true;
-            })
-        })
-        if (!isPermissionFound) throw Error("Permission " + accountCopy.permission + " with account " + accountCopy.name + " was not found");
+        const permissions = accountRes.permissions.filter((permission) => {
+            if (accountCopy.permission === permission.perm_name) {
+                let keys = permission.required_auth.keys.filter((key) => {
+                    if (key.key === accountCopy.pubkey) return true;
+                })
+                if (keys.length && keys.length > 0) return true;
+            }
+        });
+        if (!(permissions.length) || permissions.length !== 1) throw Error("Permission " + accountCopy.permission + " with account " + accountCopy.name + " was not found");
 
         delete accountCopy.pkey;
         this.account = accountCopy;
@@ -31,7 +32,7 @@ class Eosio {
 
         this.api = api;
         this.rpc = rpc;
-        
+
         this.getTable = async function(code, scope, table) {
             return await rpc.get_table_rows({
                 json: true,

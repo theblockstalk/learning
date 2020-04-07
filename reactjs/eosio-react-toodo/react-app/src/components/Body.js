@@ -80,7 +80,6 @@ export default Body;
 /*
 Todo
 - field validation
-- check account name and chain id
 - error handling
 - use react router
 - loggout
