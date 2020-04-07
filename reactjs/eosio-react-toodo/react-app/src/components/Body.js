@@ -33,10 +33,20 @@ class Body extends React.Component {
   }
 
   async onLogin() {
-    const eosio = new Eosio(this.state.account, this.state.pkey);
-    await eosio.initializeEosio();
-    const todoContract = new Contract("todolist", eosio)
+    const network = {
+        chainId: 'bc31c358a5aaafb5f7ad73a2ef85625f67fe9dc027f8c441fc272027d53f00f6',
+        node: 'https://eos-studio.api.dfuse.dev'
+    }
 
+    const account = {
+      name: this.state.account,
+      pkey: this.state.pkey,
+      permission: "active"
+    }
+  
+    const eosio = new Eosio();
+    await eosio.initializeEosio(account, network);
+    const todoContract = new Contract("todolist", eosio)
     await todoContract.initializeContract();
 
     this.setState({

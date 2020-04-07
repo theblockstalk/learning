@@ -3,9 +3,9 @@ class Contract {
      * @param contractAccount - the name of the account on the network where the smart contract lives
      * @param eosio - eosio object
      */
-    constructor(contractAccount, eosioObj) {
+    constructor(contractAccount, eosio) {
         this.contractAccount = contractAccount;
-        this.eosio = eosioObj;
+        this.eosio = eosio;
     }
 
         /* Initializes the contract to have useful action and table access functions
