@@ -8,19 +8,25 @@ function mapStateToProps(state) {
   };
 }
 
+const mapDispatchToProps = {
+  increment,
+  decrement,
+  reset
+};
+
 class Counter extends React.Component {
   state = { count: 0 };
 
   increment = () => {
-    this.props.dispatch(increment());
+    this.props.increment();
   };
 
   decrement = () => {
-    this.props.dispatch(decrement());
+    this.props.decrement();
   };
 
   reset = () => {
-    this.props.dispatch(reset());
+    this.props.reset();
   }
 
   render() {
@@ -38,4 +44,4 @@ class Counter extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(Counter);
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
