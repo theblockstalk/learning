@@ -1,4 +1,5 @@
 const scrypt = require('scrypt-js');
+const bcrypt = require('bcryptjs');
 const base64js = require('base64-js')
 
 const safeAscii = /^[A-Za-z0-9!@#$%^&*()]+$/;
@@ -45,15 +46,24 @@ async function main() {
     // Parameters used for my crypto wallet
     const n = 8192, r = 8, p = 1;
     // Need to call once before measuring to initalize library codebase
-    let key = await scrypt.scrypt(bufferPassword, Buffer.from(salt), n, r, p, keyLengthBytes);
+    let keyScrypt = await scrypt.scrypt(bufferPassword, Buffer.from(salt), n, r, p, keyLengthBytes);
+    let saltBcrypt = await bcrypt.genSalt(10);
+    let keyBcrypt = await bcrypt.hash(normalizedPassword, saltBcrypt);
     
-    const startTime = new Date();
-    key = await scrypt.scrypt(bufferPassword, Buffer.from(salt), n, r, p, keyLengthBytes);
-    const endTime = new Date();
-    const durationMilli = endTime.getTime() - startTime.getTime();
-    const memoryUsed = 128 * n * r * p / 1000;
+    let startTime = new Date();
+    keyScrypt = await scrypt.scrypt(bufferPassword, Buffer.from(salt), n, r, p, keyLengthBytes);
+    let endTime = new Date();
+    let durationMilli = endTime.getTime() - startTime.getTime();
+    let memoryUsed = 128 * n * r * p / 1000;
     
-    console.log(normalizedPassword, salt, n, r, p, key.length, base64js.fromByteArray(key), durationMilli + 'ms', memoryUsed + ' MB');
+    console.log(keyScrypt.length, base64js.fromByteArray(keyScrypt), durationMilli + 'ms', memoryUsed + ' MB');
+
+    startTime = new Date();
+    keyBcrypt = await bcrypt.hash(normalizedPassword, saltBcrypt);
+    endTime = new Date();
+    durationMilli = endTime.getTime() - startTime.getTime();
+    
+    console.log(keyBcrypt.length, keyBcrypt, durationMilli + 'ms');
 }
 
 main();
