@@ -1,5 +1,6 @@
 const scrypt = require('scrypt-js');
 const bcrypt = require('bcryptjs');
+const argon2 = require('argon2-browser');
 const base64js = require('base64-js')
 
 const safeAscii = /^[A-Za-z0-9!@#$%^&*()]+$/;
@@ -49,6 +50,17 @@ async function main() {
     let keyScrypt = await scrypt.scrypt(bufferPassword, Buffer.from(salt), n, r, p, keyLengthBytes);
     let saltBcrypt = await bcrypt.genSalt(10);
     let keyBcrypt = await bcrypt.hash(normalizedPassword, saltBcrypt);
+    const argon2MemoryKb = 1024;
+    let keyArgon2 = await argon2.hash({
+        pass: normalizedPassword,
+        salt,
+        // optional
+        time: 1, // the number of iterations
+        mem: argon2MemoryKb, // used memory, in KiB
+        hashLen: 32, // desired hash length
+        parallelism: 1, // desired parallelism (it won't be computed in parallel, however)
+        type: argon2.ArgonType.Argon2id, // Argon2d, Argon2i, Argon2id
+    })
     
     let startTime = new Date();
     keyScrypt = await scrypt.scrypt(bufferPassword, Buffer.from(salt), n, r, p, keyLengthBytes);
@@ -64,6 +76,22 @@ async function main() {
     durationMilli = endTime.getTime() - startTime.getTime();
     
     console.log(keyBcrypt.length, keyBcrypt, durationMilli + 'ms');
+
+    startTime = new Date();
+    keyArgon2 = await argon2.hash({
+        pass: normalizedPassword,
+        salt,
+        // optional
+        time: 40, // the number of iterations
+        mem: argon2MemoryKb, // used memory, in KiB
+        hashLen: 32, // desired hash length
+        parallelism: 1, // desired parallelism (it won't be computed in parallel, however)
+        type: argon2.ArgonType.Argon2id, // Argon2d, Argon2i, Argon2id
+    })
+    endTime = new Date();
+    durationMilli = endTime.getTime() - startTime.getTime();
+    
+    console.log(keyArgon2.hash.length, keyArgon2.hashHex, durationMilli + 'ms', argon2MemoryKb / 1000 + ' MB');
 }
 
 main();
