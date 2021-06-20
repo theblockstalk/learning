@@ -1,6 +1,4 @@
 const crypto = require('crypto');
-var sys = require('sys')
-var exec = require('child_process').exec;
 
 // Web way
 async function digestMessage(message) {
@@ -21,19 +19,18 @@ function makeHash(algorithm, input) {
 }
 
 async function main() {
+    console.log('Available hash algorithms');
+    console.log(crypto.getHashes());
+
     const input = "Jack";
 
     makeHash('sha256', input);
-    makeHash('md5', input);
+    makeHash('sha3-256', input);
+    makeHash('md5', input); // insecure
     makeHash('ripemd160', input);
     makeHash('shake256', input);
-    makeHash('sm3', input);
     makeHash('whirlpool', input);
-
-    exec("openssl list -digest-algorithms", function(err, stdout, stderr) {
-        console.log('Hash algorithms supported by openssl on system')
-        console.log(stdout);
-      });
+    makeHash('blake2b512', input);
 }
 
 main();
