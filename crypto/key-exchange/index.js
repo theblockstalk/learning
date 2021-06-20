@@ -24,6 +24,6 @@ const ABC = AB.mul(C.getPrivate())
 const BCA = BC.mul(A.getPrivate())
 const CAB = CA.mul(B.getPrivate())
 
-console.log(ABC.getX().toString(16))
-console.log(BCA.getX().toString(16))
-console.log(CAB.getX().toString(16))
+console.log(ABC.getX().toString(16)) // required A public and B and C private
+console.log(BCA.getX().toString(16)) // required B public and A and C private
+console.log(CAB.getX().toString(16)) // required C public and A and B private
