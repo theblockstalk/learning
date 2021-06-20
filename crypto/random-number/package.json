@@ -1,0 +1,15 @@
+{
+  "name": "random-number",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jack Tanner",
+  "license": "ISC",
+  "dependencies": {
+    "base64-js": "^1.5.1"
+  }
+}
