@@ -1,0 +1,84 @@
+/* Create your test CSS here */
+
+p {
+    color: red;
+}
+
+.special {
+    color: green;
+}
+
+
+p {
+    color: blue;
+}
+
+h1 {
+    color: blue;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+.manythings {
+    text-align: center;
+}
+
+#onething {
+    text-align: right;
+}
+
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+.box p {
+    /* outline: 3px solid;
+    outline-color: royalblue; */
+    border: 3px solid;
+    border-color: royalblue;
+    width: 200px;
+    background-color: beige;
+}
+
+.box p:first-child {
+    outline-color: red;
+}
+
+h1,
+h2,
+.intro {
+    text-shadow: 2px 2px 2px #000;
+}
+
+.outer {
+    border: 5px solid black;
+}
+
+.box2 {
+    padding: 10px;
+    width: calc(90% - 30px);
+    background-color: rebeccapurple;
+    color: white;
+}
+
+.box3 {
+    margin: 30px;
+    width: 100px;
+    height: 100px;
+    background-color: rebeccapurple;
+    transform: rotate(45deg);
+    /* transform: rotate(0.8turn); */
+}
+
+body {
+    background: red url(bg-graphic.png) 10px 10px repeat-x fixed;
+    height: 100vh;
+}
+
+@media (min-width: 30em) {
+    body {
+        background-image: linear-gradient(45deg, rgb(32, 127, 216), #af4261);
+    }
+}
