@@ -1,0 +1,79 @@
+span {
+    background-color: chartreuse;
+}
+
+strong {
+    color: rebeccapurple;
+}
+
+em {
+    color: rebeccapurple;
+}
+
+/* * {
+    margin: 0;
+} */
+
+article *:first-child {
+    font-weight: bold;
+    color: red;
+}
+
+.highlight {
+    background-color: orange;
+}
+
+span.highlight {
+    background-color: yellow;
+}
+
+h1.highlight {
+    background-color: pink;
+}
+
+.notebox {
+    border: 4px solid #666;
+    padding: .5em;
+}
+
+.notebox.warning {
+    border-color: orange;
+    font-weight: bold;
+}
+
+.notebox.danger {
+    border-color: red;
+    font-weight: bold;
+}
+
+/* li[class] {
+    font-size: 200%;
+}
+
+li[class="a"] {
+    background-color: yellow;
+}
+
+li[class~="a"] {
+    color: red;
+} */
+
+/* li[class^="a"] {
+    font-size: 200%;
+}
+
+li[class$="a"] {
+    background-color: yellow;
+}
+
+li[class*="a"] {
+    color: red;
+} */
+
+li[class^="a"] {
+    background-color: yellow;
+}
+
+li[class^="a" i] {
+    color: red;
+}

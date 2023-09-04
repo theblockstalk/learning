@@ -1,0 +1,92 @@
+.task1 {
+    h1 {
+        color: blue;
+    }
+
+    h2 {
+        color: white;
+        background-color: blue;
+    }
+
+    span {
+        font-size: 200%;
+    }
+
+}
+
+.task2 {
+    #special {
+        background-color: yellow;
+    }
+
+    .alert {
+        border: 1px solid grey;
+    }
+
+    .alert.stop {
+        background-color: red;
+    }
+
+    .alert.go {
+        background-color: green;
+    }
+}
+
+.task3 {
+    a {
+        color: orange;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: green;
+    }
+
+    p:first-child {
+        font-size: 150%;
+    }
+
+    p:first-child::first-line {
+        color: red;
+    }
+
+    tr:nth-child(even) {
+        background-color: #333;
+        color: white;
+    }
+}
+
+.task4 {
+    h2+p {
+        color: red;
+    }
+
+    ul.list>li {
+        list-style-type: none;
+        border-bottom: 1px solid grey;
+
+    }
+}
+
+.task5 {
+    a {
+        border: 5px solid grey;
+        margin: 7px;
+    }
+
+    a[title] {
+        border-color: pink;
+    }
+
+    a[href*="contact"] {
+        border-color: orange;
+    }
+
+    a[href^="https"] {
+        border-color: green;
+    }
+
+}

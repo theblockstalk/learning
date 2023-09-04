@@ -1,0 +1,52 @@
+.section1 {
+    #outer div ul .nav a {
+        background-color: powderblue;
+        padding: 5px;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    div div li a {
+        color: rebeccapurple;
+    }
+
+    /* a {
+    background-color: unset !important;
+} */
+
+
+    /* #outer div ul .nav a {
+    background-color: unset;
+} */
+
+    #outer #inner a {
+        background-color: unset;
+    }
+}
+
+.section2 {
+    @layer yellow,
+    purple,
+    green;
+
+    @layer yellow {
+        #outer div ul .nav a {
+            padding: 5px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    }
+
+    @layer purple {
+        div div li a {
+            color: rebeccapurple;
+        }
+    }
+
+    @layer green {
+        a {
+            color: lightgreen;
+        }
+    }
+
+}
