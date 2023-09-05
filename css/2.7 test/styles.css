@@ -26,8 +26,8 @@
 
 .section2 {
     @layer yellow,
-    purple,
-    green;
+    green,
+    purple;
 
     @layer yellow {
         #outer div ul .nav a {
