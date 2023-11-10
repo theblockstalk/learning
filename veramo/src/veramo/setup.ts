@@ -17,6 +17,7 @@ import { Entities, KeyStore, DIDStore, PrivateKeyStore, migrations } from '@vera
 import { DataSource } from 'typeorm'
 import { getDidKeyResolver, KeyDIDProvider } from '@veramo/did-provider-key'
 import { MemoryKeyStore, MemoryPrivateKeyStore } from '@veramo/key-manager'
+import { getDidJwkResolver, JwkDIDProvider } from '@veramo/did-provider-jwk'
 
 // Using TypeORM and SQLite
 // const DATABASE_FILE = 'database.sqlite'
@@ -62,12 +63,16 @@ export const didManager = new DIDManager({
         'did:key': new KeyDIDProvider({
             defaultKms: 'local',
         }),
+        'did:jwk': new JwkDIDProvider({
+            defaultKms: 'local',
+        }),
     },
 })
 
 export const didResolver = new DIDResolverPlugin({
     resolver: new Resolver({
         ...getDidKeyResolver(),
+        ...getDidJwkResolver(),
     }),
 })
 
