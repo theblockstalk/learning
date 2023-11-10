@@ -16,9 +16,7 @@ import { Resolver } from 'did-resolver'
 import { Entities, KeyStore, DIDStore, PrivateKeyStore, migrations } from '@veramo/data-store'
 import { DataSource } from 'typeorm'
 import { getDidKeyResolver, KeyDIDProvider } from '@veramo/did-provider-key'
-import { MemoryPrivateKeyStore } from './memory-private-key-store'
-import { AbstractKeyStore } from '@veramo/key-manager'
-import { MemoryKeyStore } from './memory-key-store'
+import { MemoryKeyStore, MemoryPrivateKeyStore } from '@veramo/key-manager'
 
 // Using TypeORM and SQLite
 // const DATABASE_FILE = 'database.sqlite'

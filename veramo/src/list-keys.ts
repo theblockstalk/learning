@@ -9,9 +9,4 @@ export async function listPrivateKeys() {
 
     const keys = await privateKeyStore.listKeys();
     console.log(`Private Keys: ${JSON.stringify(keys, null, 2)}`)
-
-    // kids.map(async kid => {
-    //     const key = await privateKeyStore.getKey({ alias: kid })
-    //     console.log(`PrivateKey: ${JSON.stringify(key, null, 2)}`)
-    // })
 }
