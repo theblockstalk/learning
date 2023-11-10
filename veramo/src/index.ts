@@ -1,3 +1,15 @@
-import agent from './agent'
+import { createCredential } from "./create-credential";
+import { createIdentifier } from "./create-identifier";
+import { listIdentifiers } from "./list-identifiers";
+import { verifyCredential } from "./verify-credential";
 
-console.log("Hello")
+async function main() {
+    await listIdentifiers()
+    await createIdentifier()
+    await listIdentifiers()
+
+    await createCredential()
+    await verifyCredential()
+}
+
+Promise.resolve(main()).catch(console.error)
