@@ -8,8 +8,8 @@ async function main() {
     // await createIdentifier()
     // await listIdentifiers()
 
-    // await createCredential()
-    // await verifyCredential()
+    const vc = await createCredential()
+    await verifyCredential(vc)
 }
 
 Promise.resolve(main()).catch(console.error)

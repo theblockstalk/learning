@@ -15,4 +15,6 @@ export async function createCredential() {
     })
     console.log(`New credential created`)
     console.log(JSON.stringify(verifiableCredential, null, 2))
+
+    return verifiableCredential;
 }

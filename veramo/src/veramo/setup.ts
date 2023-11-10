@@ -18,7 +18,7 @@ import { DataSource } from 'typeorm'
 import { getDidKeyResolver, KeyDIDProvider } from '@veramo/did-provider-key'
 
 const DATABASE_FILE = 'database.sqlite'
-const KMS_SECRET_KEY = 'my-secret-key'
+const KMS_SECRET_KEY = 'b17dfd1b648eb4113bc4f1294d5b302b3fb5425e793ccde8934896c20bdfd6e9'
 
 const dbConnection = new DataSource({
     type: 'sqlite',
