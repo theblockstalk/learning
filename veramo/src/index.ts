@@ -10,8 +10,8 @@ async function main() {
     await listIdentifiers()
     await listPrivateKeys()
 
-    // const vc = await createCredential()
-    // await verifyCredential(vc)
+    const vc = await createCredential()
+    await verifyCredential(vc)
 }
 
 Promise.resolve(main()).catch(console.error)

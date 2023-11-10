@@ -15,9 +15,11 @@
     "@veramo/did-provider-key": "^5.5.3",
     "@veramo/did-resolver": "^5.5.3",
     "@veramo/kms-local": "^5.5.3",
+    "@veramo/kv-store": "^5.5.3",
     "@veramo/utils": "^5.5.3",
     "did-resolver": "^4.1.0",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^5.1.6",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "typescript": "^5.2.2",
