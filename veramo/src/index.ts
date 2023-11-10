@@ -1,17 +1,21 @@
 import { createCredential } from "./create-credential";
-import { createIdentifier } from "./create-identifier";
+import { createIdentifiers } from "./create-identifier";
 import { listIdentifiers } from "./list-identifiers";
 import { listPrivateKeys } from "./list-keys";
 import { verifyCredential } from "./verify-credential";
 
 async function main() {
     await listIdentifiers()
-    await createIdentifier()
+    await createIdentifiers()
     await listIdentifiers()
     await listPrivateKeys()
 
-    const vc = await createCredential()
-    await verifyCredential(vc)
+    const vcSignedByKey = await createCredential({ alias: 'key-default', provider: 'did:key' })
+    await verifyCredential(vcSignedByKey)
+
+
+    const vcSignedByJwk = await createCredential({ alias: 'jwk-default', provider: 'did:jwk' })
+    await verifyCredential(vcSignedByJwk)
 }
 
 Promise.resolve(main()).catch(console.error)
