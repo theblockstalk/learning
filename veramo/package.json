@@ -5,10 +5,19 @@
     "start": "ts-node src/index.ts"
   },
   "dependencies": {
-    "@veramo/core": "^5.5.3"
+    "@veramo/core": "^5.5.3",
+    "@veramo/credential-w3c": "^5.5.3",
+    "@veramo/data-store": "^5.5.3",
+    "@veramo/did-manager": "^5.5.3",
+    "@veramo/did-provider-jwk": "^5.5.3",
+    "@veramo/did-provider-key": "^5.5.3",
+    "@veramo/did-resolver": "^5.5.3",
+    "@veramo/kms-local": "^5.5.3",
+    "@veramo/utils": "^5.5.3",
+    "did-resolver": "^4.1.0"
   },
   "devDependencies": {
-    "typescript": "^5.2.2",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   }
 }
