@@ -5,11 +5,11 @@ import { verifyCredential } from "./verify-credential";
 
 async function main() {
     await listIdentifiers()
-    await createIdentifier()
-    await listIdentifiers()
+    // await createIdentifier()
+    // await listIdentifiers()
 
-    await createCredential()
-    await verifyCredential()
+    // await createCredential()
+    // await verifyCredential()
 }
 
 Promise.resolve(main()).catch(console.error)
