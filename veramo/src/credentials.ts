@@ -1,6 +1,7 @@
+import { VerifiableCredential } from '@veramo/core'
 import { agent } from './veramo/setup'
 
-export async function createCredential({ alias, provider }: { alias: string, provider: string }) {
+export async function createCredential({ alias, provider }: { alias: string, provider: string }): Promise<VerifiableCredential> {
     const credentialSubject = {
         id: 'did:web:example.com',
         you: 'Rock',
@@ -19,4 +20,11 @@ export async function createCredential({ alias, provider }: { alias: string, pro
     console.info(`VC length: ${verifiableCredential.proof.jwt.length}`)
 
     return verifiableCredential;
+}
+
+export async function verifyCredential(vc: VerifiableCredential) {
+    const result = await agent.verifyCredential({
+        credential: vc
+    })
+    console.log(`Credential verified`, result.verified)
 }

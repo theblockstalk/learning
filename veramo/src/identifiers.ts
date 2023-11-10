@@ -12,3 +12,16 @@ export async function createIdentifiers() {
     console.info(`DID length: ${identifierJwk.did.length}`)
 
 }
+
+export async function listIdentifiers() {
+    const identifiers = await agent.didManagerFind()
+
+    console.log(`There are ${identifiers.length} identifiers`)
+
+    if (identifiers.length > 0) {
+        identifiers.map((id) => {
+            console.log(JSON.stringify(id, null, 2))
+            console.log('..................')
+        })
+    }
+}

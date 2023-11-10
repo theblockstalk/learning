@@ -18,6 +18,7 @@ import { DataSource } from 'typeorm'
 import { getDidKeyResolver, KeyDIDProvider } from '@veramo/did-provider-key'
 import { MemoryKeyStore, MemoryPrivateKeyStore } from '@veramo/key-manager'
 import { getDidJwkResolver, JwkDIDProvider } from '@veramo/did-provider-jwk'
+import { DIDComm, IDIDComm } from '@veramo/did-comm'
 
 // Using TypeORM and SQLite
 // const DATABASE_FILE = 'database.sqlite'
@@ -76,13 +77,17 @@ export const didResolver = new DIDResolverPlugin({
     }),
 })
 
+export const messageHandler = new DIDComm()
+
+
 export const agent = createAgent<
-    IDIDManager & IKeyManager & IDataStore & IDataStoreORM & IResolver & ICredentialPlugin
+    IDIDManager & IKeyManager & IDataStore & IDataStoreORM & IResolver & ICredentialPlugin & IDIDComm
 >({
     plugins: [
         keyManager,
         didManager,
         didResolver,
         new CredentialPlugin(),
+        messageHandler
     ],
 })

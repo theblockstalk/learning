@@ -1,8 +1,6 @@
-import { createCredential } from "./create-credential";
-import { createIdentifiers } from "./create-identifier";
-import { listIdentifiers } from "./list-identifiers";
-import { listPrivateKeys } from "./list-keys";
-import { verifyCredential } from "./verify-credential";
+import { createCredential, verifyCredential } from "./credentials";
+import { createIdentifiers, listIdentifiers } from "./identifiers";
+import { listPrivateKeys } from "./keys";
 
 async function main() {
     await listIdentifiers()
