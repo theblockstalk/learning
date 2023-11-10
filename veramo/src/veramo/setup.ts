@@ -30,30 +30,38 @@ const dbConnection = new DataSource({
     entities: Entities,
 }).initialize()
 
+export const privateKeyStore = new PrivateKeyStore(dbConnection, new SecretBox(KMS_SECRET_KEY))
+
+export const keyManager = new KeyManager({
+    store: new KeyStore(dbConnection),
+    kms: {
+        local: new KeyManagementSystem(privateKeyStore),
+    },
+})
+
+export const didManager = new DIDManager({
+    store: new DIDStore(dbConnection),
+    defaultProvider: 'did:key',
+    providers: {
+        'did:key': new KeyDIDProvider({
+            defaultKms: 'local',
+        }),
+    },
+})
+
+export const didResolver = new DIDResolverPlugin({
+    resolver: new Resolver({
+        ...getDidKeyResolver(),
+    }),
+})
+
 export const agent = createAgent<
     IDIDManager & IKeyManager & IDataStore & IDataStoreORM & IResolver & ICredentialPlugin
 >({
     plugins: [
-        new KeyManager({
-            store: new KeyStore(dbConnection),
-            kms: {
-                local: new KeyManagementSystem(new PrivateKeyStore(dbConnection, new SecretBox(KMS_SECRET_KEY))),
-            },
-        }),
-        new DIDManager({
-            store: new DIDStore(dbConnection),
-            defaultProvider: 'did:key',
-            providers: {
-                'did:key': new KeyDIDProvider({
-                    defaultKms: 'local',
-                }),
-            },
-        }),
-        new DIDResolverPlugin({
-            resolver: new Resolver({
-                ...getDidKeyResolver(),
-            }),
-        }),
+        keyManager,
+        didManager,
+        didResolver,
         new CredentialPlugin(),
     ],
 })
