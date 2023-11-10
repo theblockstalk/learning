@@ -1,0 +1,14 @@
+{
+  "name": "veramo",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@veramo/core": "^5.5.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "ts-node": "^10.9.1"
+  }
+}
