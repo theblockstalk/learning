@@ -1,7 +1,7 @@
 import { agent } from './veramo/setup'
 
 export async function createCredential() {
-    const identifier = await agent.didManagerGetByAlias({ alias: 'default', provider: 'did:jwk' })
+    const identifier = await agent.didManagerGetByAlias({ alias: 'default', provider: 'did:key' })
 
     const verifiableCredential = await agent.createVerifiableCredential({
         credential: {
@@ -15,6 +15,7 @@ export async function createCredential() {
     })
     console.log(`New credential created`)
     console.log(JSON.stringify(verifiableCredential, null, 2))
+    console.info(`VC length: ${verifiableCredential.proof.jwt.length}`)
 
     return verifiableCredential;
 }
