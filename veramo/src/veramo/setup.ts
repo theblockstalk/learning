@@ -77,8 +77,9 @@ export const didResolver = new DIDResolverPlugin({
     }),
 })
 
-export const messageHandler = new DIDComm()
+export const credentials = new CredentialPlugin()
 
+export const messageHandler = new DIDComm()
 
 export const agent = createAgent<
     IDIDManager & IKeyManager & IDataStore & IDataStoreORM & IResolver & ICredentialPlugin & IDIDComm
@@ -87,7 +88,7 @@ export const agent = createAgent<
         keyManager,
         didManager,
         didResolver,
-        new CredentialPlugin(),
+        credentials,
         messageHandler
     ],
 })

@@ -11,6 +11,11 @@ export async function createIdentifiers() {
     console.log(JSON.stringify(identifierJwk, null, 2))
     console.info(`DID length: ${identifierJwk.did.length}`)
 
+    const identifierKey2 = await agent.didManagerCreate({ alias: 'key-secondary', provider: 'did:key' })
+    console.log(`New identifier created`)
+    console.log(JSON.stringify(identifierKey2, null, 2))
+    console.info(`DID length: ${identifierKey2.did.length}`)
+
 }
 
 export async function listIdentifiers() {
@@ -24,4 +29,15 @@ export async function listIdentifiers() {
             console.log('..................')
         })
     }
+
+    return identifiers;
+}
+
+export async function resolveDid(did: string) {
+    console.log(`Resolving DID: ${did}`)
+    const result = await agent.resolveDid({ didUrl: did })
+
+    console.log(JSON.stringify(result, null, 2))
+
+    return result;
 }
