@@ -12,8 +12,8 @@ export async function picollm() {
 
         const pllm = await PicoLLMWorker.create(
             PICO_ACCESS_KEY,
-            modelFile
-          );          
+            modelFile as any,
+          );
 
         const res = await pllm.generate(PROMPT_TEST);
         console.log(res.completion);
