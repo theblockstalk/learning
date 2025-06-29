@@ -31,6 +31,8 @@ export async function webllm() {
             stream: true, // <-- Enable streaming
             stream_options: { include_usage: true },
         });
+
+        console.log('chunks', chunks)
         
         let reply = "";
         for await (const chunk of chunks) {
