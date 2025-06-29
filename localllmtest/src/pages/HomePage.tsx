@@ -12,6 +12,9 @@ export const HomePage: React.FC = () => {
           <li>
             <a href="/picollm">PicoLLM</a>
           </li>
+          <li>
+            <a href="/transformers">Hugging Face Transformers</a>
+          </li>
         </ul>
       </nav>
     </div>

@@ -1,14 +1,14 @@
 import { PicoLLMWorker } from "@picovoice/picollm-web"
 import { PROMPT_TEST } from "./common";
 
-const PICO_ACCESS_KEY = process.env.REACT_PICO_ACCESS_KEY;
+const PICO_ACCESS_KEY = process.env.PICO_ACCESS_KEY;
 const modelFile = './phi2-290.pllm';
 
 export async function picollm() {
     try {
         console.log('running picollm.js')
 
-        if (!PICO_ACCESS_KEY) throw new Error("New Pico access key");
+        if (!PICO_ACCESS_KEY) throw new Error("No Pico access key");
 
         const pllm = await PicoLLMWorker.create(
             PICO_ACCESS_KEY,

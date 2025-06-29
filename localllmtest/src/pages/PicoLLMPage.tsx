@@ -14,6 +14,7 @@ export const PicoLLMPage: React.FC = () => {
   return (
     <div>
       <h1>PicoLLM Page</h1>
+      <p>Make sure you have set the PICO_ACCESS_KEY when starting the app</p>
     </div>
   );
 };
