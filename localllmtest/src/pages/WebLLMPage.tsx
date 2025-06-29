@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { webllm } from '../localllms/webllm';
 
 export const WebLLMPage: React.FC = () => {
-  const [rendered, setRendered] = useState(false);
-
+  let rendered = false;
+  
   useEffect(() => {
     if (!rendered) {
       webllm();
-      setRendered(true);
+      rendered = true;
     }
   }, [rendered]);
 

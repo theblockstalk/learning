@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { picollm } from '../localllms/picollm';
 
 export const PicoLLMPage: React.FC = () => {
-  const [rendered, setRendered] = useState(false);
+  let rendered = false;
 
   useEffect(() => {
     if (!rendered) {
       picollm();
-      setRendered(true);
+      rendered = true;
     }
   }, [rendered]);
 
