@@ -1,10 +1,10 @@
 import { PicoLLMWorker } from "@picovoice/picollm-web"
 import { PROMPT_TEST } from "./common";
 
-const PICO_ACCESS_KEY = process.env.PICO_ACCESS_KEY;
-const modelFile = './phi2-290.pllm';
+const PICO_ACCESS_KEY = process.env.REACT_APP_PICO_ACCESS_KEY;
+// const modelFile = 'phi2-290.pllm';
 
-export async function picollm() {
+export async function picollm(modelFile: File) {
     try {
         console.log('running picollm.js')
 
